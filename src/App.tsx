@@ -13,6 +13,7 @@ import Members from "./pages/Members";
 import Leaderboard from "./pages/Leaderboard";
 import Auth from "./pages/Auth";
 import Sell from "./pages/Sell";
+import SellWOS from "./pages/sell/SellWOS";
 import MyListings from "./pages/MyListings";
 import Disputes from "./pages/Disputes";
 import KYC from "./pages/KYC";
@@ -53,6 +54,7 @@ const App = () => (
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/sell" element={<Sell />} />
+          <Route path="/sell/wos" element={<SellWOS />} />
           <Route path="/my-listings" element={<MyListings />} />
           <Route path="/disputes" element={<Disputes />} />
           <Route path="/kyc" element={<KYC />} />
