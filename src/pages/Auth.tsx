@@ -4,10 +4,25 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Mail, Lock, User as UserIcon, ArrowRight, Snowflake } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
+import { useToast } from "@/hooks/use-toast";
 import { Navbar } from "@/components/Navbar";
 
 const Auth = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogin = () => {
+    login();
+    toast({
+      title: "تم تسجيل الدخول بنجاح",
+      description: "مرحباً بك في NXOLand",
+    });
+    navigate("/");
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden flex items-center justify-center" dir="rtl">
       {/* Background */}
@@ -88,6 +103,7 @@ const Auth = () => {
               </div>
 
               <Button 
+                onClick={handleLogin}
                 className="w-full gap-2 py-6 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white font-bold border-0"
               >
                 تسجيل الدخول
