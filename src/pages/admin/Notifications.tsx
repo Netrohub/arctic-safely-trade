@@ -292,7 +292,7 @@ const AdminNotifications = () => {
 
         <div className="grid gap-4">
           {notifications.map((notification) => (
-            <Card key={notification.id} className="bg-white/5 border-white/10">
+            <Card key={notification.id} className="bg-[hsl(200,70%,18%)] border-white/20">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="space-y-1 flex-1">

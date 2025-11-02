@@ -17,7 +17,7 @@ const Leaderboard = () => {
   ];
 
   const getBadgeColor = (rank: number) => {
-    if (rank === 1) return "from-[hsl(45,100%,51%)] to-[hsl(45,100%,41%)]";
+    if (rank === 1) return "from-[hsl(195,80%,50%)] to-[hsl(195,80%,40%)]"; // Cyan instead of gold
     if (rank === 2) return "from-[hsl(0,0%,75%)] to-[hsl(0,0%,60%)]";
     if (rank === 3) return "from-[hsl(25,75%,47%)] to-[hsl(25,75%,37%)]";
     return "from-[hsl(195,80%,50%)] to-[hsl(200,70%,40%)]";
@@ -88,16 +88,16 @@ const Leaderboard = () => {
 
           {/* 1st Place */}
           <div className="md:order-2">
-            <Card className="p-5 text-center bg-gradient-to-br from-[hsl(45,100%,51%,0.15)] to-[hsl(45,100%,30%,0.1)] border-2 border-[hsl(45,100%,51%,0.5)] backdrop-blur-sm shadow-[0_0_40px_rgba(255,215,0,0.3)]">
+            <Card className="p-5 text-center bg-[hsl(195,80%,20%)] border-2 border-[hsl(195,80%,50%)] backdrop-blur-sm shadow-[0_0_40px_rgba(56,189,248,0.4)]">
               <div className="relative inline-block mb-3">
-                <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${getBadgeColor(1)} flex items-center justify-center shadow-[0_0_40px_rgba(255,215,0,0.6)]`}>
+                <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${getBadgeColor(1)} flex items-center justify-center shadow-[0_0_40px_rgba(56,189,248,0.6)]`}>
                   <Trophy className="h-10 w-10 text-white" />
                 </div>
-                <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-[hsl(45,100%,51%)] flex items-center justify-center font-black text-white shadow-lg text-sm">
+                <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-[hsl(195,80%,50%)] flex items-center justify-center font-black text-white shadow-lg text-sm">
                   1
                 </div>
               </div>
-              <Badge className="mb-2 bg-[hsl(45,100%,51%,0.3)] text-white border-[hsl(45,100%,51%)] font-bold text-xs">
+              <Badge className="mb-2 bg-[hsl(195,80%,30%)] text-white border-[hsl(195,80%,50%)] font-bold text-xs">
                 البائع الأول
               </Badge>
               <h3 className="font-black text-white text-xl mb-2 drop-shadow-lg flex items-center justify-center gap-2">
@@ -108,8 +108,8 @@ const Leaderboard = () => {
               </h3>
               <div className="text-4xl font-black text-white mb-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">{topSellers[0].revenue}</div>
               <div className="text-sm font-bold text-white/90 mb-2">ريال سعودي</div>
-              <div className="flex items-center justify-center gap-1 text-[hsl(45,100%,60%)]">
-                <Star className="h-4 w-4 fill-current drop-shadow-lg" />
+              <div className="flex items-center justify-center gap-1">
+                <Star className="h-4 w-4 fill-[hsl(40,90%,55%)] text-[hsl(40,90%,55%)] drop-shadow-lg" />
                 <span className="font-bold text-lg text-white">{topSellers[0].rating}</span>
               </div>
             </Card>
@@ -181,7 +181,7 @@ const Leaderboard = () => {
       </div>
 
       {/* Glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[hsl(45,100%,51%,0.1)] rounded-full blur-[120px] animate-pulse pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[hsl(195,80%,50%,0.15)] rounded-full blur-[120px] animate-pulse pointer-events-none" />
     </div>
   );
 };

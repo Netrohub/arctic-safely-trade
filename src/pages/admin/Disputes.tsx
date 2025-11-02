@@ -71,13 +71,13 @@ const AdminDisputes = () => {
       </div>
 
       {/* Search */}
-      <Card className="p-4 bg-white/5 border-white/10 backdrop-blur-sm mb-6">
+      <Card className="p-4 bg-[hsl(200,70%,18%)] border-white/20 backdrop-blur-sm mb-6">
         <div className="flex gap-3">
           <div className="relative flex-1">
             <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white/40" />
             <Input 
               placeholder="البحث عن نزاع..."
-              className="pr-10 bg-white/5 border-white/10 text-white placeholder:text-white/40"
+              className="pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/40"
             />
           </div>
           <Button className="gap-2 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white border-0">
@@ -89,7 +89,7 @@ const AdminDisputes = () => {
       {/* Disputes List */}
       <div className="space-y-4">
         {disputes.map((dispute) => (
-          <Card key={dispute.id} className="p-5 bg-white/5 border-white/10 backdrop-blur-sm">
+          <Card key={dispute.id} className="p-5 bg-[hsl(200,70%,18%)] border-white/20 backdrop-blur-sm">
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">

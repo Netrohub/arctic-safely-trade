@@ -30,13 +30,13 @@ const AdminUsers = () => {
       </div>
 
       {/* Search */}
-      <Card className="p-4 bg-white/5 border-white/10 backdrop-blur-sm mb-6">
+      <Card className="p-4 bg-[hsl(200,70%,18%)] border-white/20 backdrop-blur-sm mb-6">
         <div className="flex gap-3">
           <div className="relative flex-1">
             <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white/40" />
             <Input 
               placeholder="البحث عن مستخدم..."
-              className="pr-10 bg-white/5 border-white/10 text-white placeholder:text-white/40"
+              className="pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/40"
             />
           </div>
           <Button className="gap-2 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white border-0">
@@ -48,7 +48,7 @@ const AdminUsers = () => {
       {/* Users List */}
       <div className="space-y-4">
         {users.map((user) => (
-          <Card key={user.id} className="p-5 bg-white/5 border-white/10 backdrop-blur-sm">
+          <Card key={user.id} className="p-5 bg-[hsl(200,70%,18%)] border-white/20 backdrop-blur-sm">
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
@@ -137,22 +137,22 @@ const AdminUsers = () => {
               </div>
 
               {/* Contact Information */}
-              <Card className="p-4 bg-white/5 border-white/10">
+              <Card className="p-4 bg-white/10 border-white/20">
                 <h3 className="text-lg font-bold text-white mb-3">معلومات الاتصال</h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-white/60">البريد الإلكتروني:</span>
-                    <span className="text-[hsl(195,80%,80%)]">{selectedUser.email}</span>
+                    <span className="text-white">{selectedUser.email}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/60">رقم الجوال:</span>
-                    <span className="text-[hsl(195,80%,80%)]">{selectedUser.phone}</span>
+                    <span className="text-white">{selectedUser.phone}</span>
                   </div>
                 </div>
               </Card>
 
               {/* Activity Statistics */}
-              <Card className="p-4 bg-white/5 border-white/10">
+              <Card className="p-4 bg-white/10 border-white/20">
                 <h3 className="text-lg font-bold text-white mb-3">إحصائيات النشاط</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>

@@ -16,7 +16,7 @@ const AdminSettings = () => {
 
       <div className="space-y-6">
         {/* General Settings */}
-        <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
+        <Card className="p-6 bg-[hsl(200,70%,18%)] border-white/20 backdrop-blur-sm">
           <div className="flex items-center gap-3 mb-6">
             <SettingsIcon className="h-6 w-6 text-[hsl(195,80%,70%)]" />
             <h2 className="text-xl font-bold text-white">الإعدادات العامة</h2>
@@ -28,7 +28,7 @@ const AdminSettings = () => {
               <Input 
                 id="siteName"
                 defaultValue="NXOLand"
-                className="mt-2 bg-white/5 border-white/10 text-white"
+                className="mt-2 bg-white/10 border-white/20 text-white"
               />
             </div>
             
@@ -37,7 +37,7 @@ const AdminSettings = () => {
               <Textarea 
                 id="siteDesc"
                 defaultValue="منصة آمنة لبيع وشراء حسابات الألعاب"
-                className="mt-2 bg-white/5 border-white/10 text-white"
+                className="mt-2 bg-white/10 border-white/20 text-white"
                 rows={3}
               />
             </div>
@@ -53,7 +53,7 @@ const AdminSettings = () => {
         </Card>
 
         {/* Security Settings */}
-        <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
+        <Card className="p-6 bg-[hsl(200,70%,18%)] border-white/20 backdrop-blur-sm">
           <div className="flex items-center gap-3 mb-6">
             <Shield className="h-6 w-6 text-green-400" />
             <h2 className="text-xl font-bold text-white">إعدادات الأمان</h2>
@@ -82,14 +82,14 @@ const AdminSettings = () => {
                 id="minAge"
                 type="number"
                 defaultValue="18"
-                className="mt-2 bg-white/5 border-white/10 text-white"
+                className="mt-2 bg-white/10 border-white/20 text-white"
               />
             </div>
           </div>
         </Card>
 
         {/* Payment Settings */}
-        <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
+        <Card className="p-6 bg-[hsl(200,70%,18%)] border-white/20 backdrop-blur-sm">
           <div className="flex items-center gap-3 mb-6">
             <DollarSign className="h-6 w-6 text-[hsl(120,60%,70%)]" />
             <h2 className="text-xl font-bold text-white">إعدادات الدفع</h2>
@@ -102,7 +102,7 @@ const AdminSettings = () => {
                 id="commission"
                 type="number"
                 defaultValue="5"
-                className="mt-2 bg-white/5 border-white/10 text-white"
+                className="mt-2 bg-white/10 border-white/20 text-white"
               />
             </div>
 
@@ -112,7 +112,7 @@ const AdminSettings = () => {
                 id="minWithdraw"
                 type="number"
                 defaultValue="100"
-                className="mt-2 bg-white/5 border-white/10 text-white"
+                className="mt-2 bg-white/10 border-white/20 text-white"
               />
             </div>
 
@@ -127,7 +127,7 @@ const AdminSettings = () => {
         </Card>
 
         {/* Notification Settings */}
-        <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
+        <Card className="p-6 bg-[hsl(200,70%,18%)] border-white/20 backdrop-blur-sm">
           <div className="flex items-center gap-3 mb-6">
             <Bell className="h-6 w-6 text-yellow-400" />
             <h2 className="text-xl font-bold text-white">إعدادات الإشعارات</h2>
@@ -158,7 +158,7 @@ const AdminSettings = () => {
                   id="adminEmail"
                   type="email"
                   defaultValue="admin@nxoland.com"
-                  className="bg-white/5 border-white/10 text-white"
+                  className="bg-white/10 border-white/20 text-white"
                 />
               </div>
             </div>
