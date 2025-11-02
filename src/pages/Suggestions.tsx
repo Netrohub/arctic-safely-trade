@@ -145,24 +145,24 @@ const Suggestions = () => {
   const sortedSuggestions = [...filterSuggestions()].sort((a, b) => b.upvotes - a.upvotes);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-b from-[hsl(200,70%,15%)] via-[hsl(195,60%,25%)] to-[hsl(200,70%,15%)]">
       <div className="container mx-auto px-4 py-8 max-w-5xl">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2 bg-gradient-arctic bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold mb-2 text-white drop-shadow-[0_0_30px_rgba(148,209,240,0.5)]">
             مركز الاقتراحات
           </h1>
-          <p className="text-muted-foreground">شارك أفكارك وساعدنا في تحسين المنصة</p>
+          <p className="text-white/70">شارك أفكارك وساعدنا في تحسين المنصة</p>
         </div>
 
         {/* Submit New Suggestion */}
-        <Card className="mb-8 border-border/50 backdrop-blur-sm bg-card/50">
+        <Card className="mb-8 bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[hsl(195,80%,70%,0.3)] transition-all">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <MessageSquare className="w-5 h-5 text-primary" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <MessageSquare className="w-5 h-5 text-[hsl(195,80%,70%)]" />
               اقتراح جديد
             </CardTitle>
-            <CardDescription>شاركنا فكرتك لتحسين المنصة</CardDescription>
+            <CardDescription className="text-white/60">شاركنا فكرتك لتحسين المنصة</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
@@ -170,6 +170,7 @@ const Suggestions = () => {
                 placeholder="عنوان الاقتراح"
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
+                className="bg-white/5 border-white/20 text-white placeholder:text-white/40"
               />
             </div>
             <div>
@@ -177,12 +178,12 @@ const Suggestions = () => {
                 placeholder="وصف الاقتراح بالتفصيل..."
                 value={newDescription}
                 onChange={(e) => setNewDescription(e.target.value)}
-                className="min-h-[100px]"
+                className="min-h-[100px] bg-white/5 border-white/20 text-white placeholder:text-white/40"
               />
             </div>
             <Button
               onClick={handleSubmit}
-              className="w-full"
+              className="w-full bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white font-bold shadow-[0_0_30px_rgba(56,189,248,0.4)] border-0"
               disabled={!newTitle.trim() || !newDescription.trim()}
             >
               إرسال الاقتراح
@@ -192,9 +193,17 @@ const Suggestions = () => {
 
         {/* Filter Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="all">الكل ({suggestions.length})</TabsTrigger>
-            <TabsTrigger value="implemented">
+          <TabsList className="grid w-full grid-cols-2 bg-white/5 border border-white/10">
+            <TabsTrigger 
+              value="all"
+              className="data-[state=active]:bg-[hsl(195,80%,50%)] data-[state=active]:text-white text-white/70"
+            >
+              الكل ({suggestions.length})
+            </TabsTrigger>
+            <TabsTrigger 
+              value="implemented"
+              className="data-[state=active]:bg-[hsl(195,80%,50%)] data-[state=active]:text-white text-white/70"
+            >
               منفذة ({suggestions.filter((s) => s.status === "implemented").length})
             </TabsTrigger>
           </TabsList>
@@ -205,7 +214,7 @@ const Suggestions = () => {
           {sortedSuggestions.map((suggestion) => (
             <Card
               key={suggestion.id}
-              className="border-border/50 hover:border-primary/50 transition-all backdrop-blur-sm bg-card/50"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[hsl(195,80%,70%,0.5)] transition-all hover:bg-white/10"
             >
               <CardContent className="p-6">
                 <div className="flex gap-4">
@@ -215,26 +224,26 @@ const Suggestions = () => {
                       variant="ghost"
                       size="icon"
                       onClick={() => handleVote(suggestion.id, "up")}
-                      className={`hover:bg-success/20 ${
+                      className={`hover:bg-[hsl(160,60%,45%,0.2)] ${
                         suggestion.userVote === "up"
-                          ? "bg-success/20 text-success"
-                          : "text-muted-foreground"
+                          ? "bg-[hsl(160,60%,45%,0.2)] text-[hsl(160,60%,50%)]"
+                          : "text-white/60"
                       }`}
                     >
                       <ThumbsUp className="w-5 h-5" />
                     </Button>
-                    <div className="flex items-center gap-1 font-bold text-lg">
-                      <TrendingUp className="w-4 h-4 text-primary" />
+                    <div className="flex items-center gap-1 font-bold text-lg text-[hsl(195,80%,70%)]">
+                      <TrendingUp className="w-4 h-4" />
                       {suggestion.upvotes - suggestion.downvotes}
                     </div>
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => handleVote(suggestion.id, "down")}
-                      className={`hover:bg-destructive/20 ${
+                      className={`hover:bg-[hsl(0,70%,55%,0.2)] ${
                         suggestion.userVote === "down"
-                          ? "bg-destructive/20 text-destructive"
-                          : "text-muted-foreground"
+                          ? "bg-[hsl(0,70%,55%,0.2)] text-[hsl(0,70%,60%)]"
+                          : "text-white/60"
                       }`}
                     >
                       <ThumbsDown className="w-5 h-5" />
@@ -244,11 +253,11 @@ const Suggestions = () => {
                   {/* Content Section */}
                   <div className="flex-1">
                     <div className="flex items-start justify-between gap-4 mb-2">
-                      <h3 className="text-xl font-bold">{suggestion.title}</h3>
+                      <h3 className="text-xl font-bold text-white">{suggestion.title}</h3>
                       {getStatusBadge(suggestion.status)}
                     </div>
-                    <p className="text-muted-foreground mb-4">{suggestion.description}</p>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <p className="text-white/60 mb-4">{suggestion.description}</p>
+                    <div className="flex items-center gap-4 text-sm text-white/50">
                       <span>{suggestion.author}</span>
                       <span>•</span>
                       <span>{suggestion.date}</span>
@@ -266,10 +275,10 @@ const Suggestions = () => {
         </div>
 
         {sortedSuggestions.length === 0 && (
-          <Card className="border-dashed">
+          <Card className="border-dashed border-white/20 bg-white/5">
             <CardContent className="p-12 text-center">
-              <MessageSquare className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-              <p className="text-muted-foreground">لا توجد اقتراحات في هذه الفئة</p>
+              <MessageSquare className="w-12 h-12 mx-auto mb-4 text-white/40" />
+              <p className="text-white/60">لا توجد اقتراحات في هذه الفئة</p>
             </CardContent>
           </Card>
         )}
