@@ -33,6 +33,7 @@ import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import Security from "./pages/Security";
 import Wallet from "./pages/Wallet";
+import Suggestions from "./pages/Suggestions";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -75,6 +76,7 @@ const App = () => (
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/security" element={<Security />} />
           <Route path="/wallet" element={<Wallet />} />
+          <Route path="/suggestions" element={<Suggestions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

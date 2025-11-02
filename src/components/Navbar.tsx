@@ -123,6 +123,17 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                         </p>
                       </Link>
                     </li>
+                    <li>
+                      <Link to="/suggestions" className={cn(
+                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
+                        isActive("/suggestions") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
+                      )}>
+                        <div className="text-sm font-semibold leading-none">الاقتراحات</div>
+                        <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
+                          شارك أفكارك لتحسين المنصة
+                        </p>
+                      </Link>
+                    </li>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
