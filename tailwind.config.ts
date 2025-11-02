@@ -64,6 +64,11 @@ export default {
           blue: "hsl(var(--trust-blue))",
           green: "hsl(var(--trust-green))",
         },
+        nav: {
+          background: "hsl(var(--nav-background))",
+          highlight: "hsl(var(--nav-highlight))",
+          accent: "hsl(var(--nav-accent))",
+        },
       },
       backgroundImage: {
         'gradient-arctic': 'var(--gradient-arctic)',
