@@ -34,6 +34,7 @@ import EditProfile from "./pages/EditProfile";
 import Security from "./pages/Security";
 import Wallet from "./pages/Wallet";
 import Suggestions from "./pages/Suggestions";
+import Reviews from "./pages/Reviews";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -77,6 +78,7 @@ const App = () => (
           <Route path="/security" element={<Security />} />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/suggestions" element={<Suggestions />} />
+          <Route path="/reviews/:userId" element={<Reviews />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

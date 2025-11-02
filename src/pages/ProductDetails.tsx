@@ -1,13 +1,45 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Star, MapPin, ArrowRight, CheckCircle2, Users, Check, X, Zap, GraduationCap, PawPrint, Crown, Swords } from "lucide-react";
+import { Shield, Star, MapPin, ArrowRight, CheckCircle2, Users, Check, X, Zap, GraduationCap, PawPrint, Crown, Swords, MessageSquare } from "lucide-react";
 import stoveLv8 from "@/assets/stove_lv_8.png";
 import { Link, useParams } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
+import { ReviewCard } from "@/components/ReviewCard";
+import { StarRating } from "@/components/StarRating";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  
+  // Mock seller reviews - replace with real API call
+  const sellerReviews = [
+    {
+      id: "1",
+      rating: 5,
+      comment: "بائع ممتاز، الحساب كما في الوصف تماماً. التسليم كان سريع والتواصل احترافي.",
+      created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+      reviewer: {
+        name: "أحمد محمد",
+        verified: true,
+      },
+      order_id: "ORD-001",
+      helpful_count: 12,
+      user_found_helpful: false,
+    },
+    {
+      id: "2",
+      rating: 4,
+      comment: "حساب جيد، البائع متعاون. أنصح بالتعامل معه.",
+      created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+      reviewer: {
+        name: "فاطمة علي",
+        verified: true,
+      },
+      order_id: "ORD-002",
+      helpful_count: 8,
+      user_found_helpful: true,
+    },
+  ];
 
   return (
     <div className="min-h-screen relative overflow-hidden" dir="rtl">
@@ -275,6 +307,59 @@ const ProductDetails = () => {
                   ℹ️ ستتمكن من مشاهدة صور الفواتير بعد إتمام عملية الشراء
                 </p>
               </div>
+            </Card>
+
+            {/* Seller Reviews Preview */}
+            <Card className="p-5 bg-white/5 border-white/10 backdrop-blur-sm">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-bold text-white flex items-center gap-2">
+                  <div className="w-1 h-6 bg-gradient-to-b from-[hsl(195,80%,70%)] to-[hsl(40,90%,55%)] rounded-full" />
+                  تقييمات البائع
+                </h3>
+                <Button 
+                  asChild
+                  variant="ghost" 
+                  size="sm"
+                  className="text-[hsl(195,80%,70%)] hover:text-[hsl(195,80%,80%)] hover:bg-white/5"
+                >
+                  <Link to="/reviews/seller-123">
+                    عرض الكل ({127})
+                  </Link>
+                </Button>
+              </div>
+              
+              <div className="flex items-center gap-3 mb-4 pb-4 border-b border-white/10">
+                <StarRating rating={4.9} readonly showValue />
+                <span className="text-white/60 text-sm">من {127} تقييم</span>
+              </div>
+
+              <div className="space-y-4">
+                {sellerReviews.slice(0, 2).map((review) => (
+                  <div key={review.id} className="p-4 bg-white/5 rounded-lg border border-white/10">
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-white font-bold text-sm">{review.reviewer.name}</span>
+                        {review.reviewer.verified && (
+                          <CheckCircle2 className="h-4 w-4 text-green-400 fill-green-400" />
+                        )}
+                      </div>
+                      <StarRating rating={review.rating} readonly size="sm" />
+                    </div>
+                    <p className="text-white/70 text-sm line-clamp-2">{review.comment}</p>
+                  </div>
+                ))}
+              </div>
+              
+              <Button 
+                asChild
+                variant="outline" 
+                className="w-full mt-4 gap-2 bg-white/5 hover:bg-white/10 text-white border-white/20"
+              >
+                <Link to="/reviews/seller-123">
+                  <MessageSquare className="h-4 w-4" />
+                  قراءة جميع التقييمات
+                </Link>
+              </Button>
             </Card>
 
             {/* CTA */}

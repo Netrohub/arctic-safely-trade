@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Navbar } from "@/components/Navbar";
+import { ReviewForm } from "@/components/ReviewForm";
 
 const Order = () => {
   const [showCredentials, setShowCredentials] = useState(false);
@@ -174,7 +175,7 @@ const Order = () => {
         </div>
 
         {/* Order Details */}
-        <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
+        <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm mb-6">
           <h3 className="text-xl font-bold text-white mb-4">تفاصيل الطلب</h3>
           <div className="space-y-3">
             <div className="flex justify-between text-white/80">
@@ -195,6 +196,25 @@ const Order = () => {
             </div>
           </div>
         </Card>
+
+        {/* Review Form - Shows after order confirmation */}
+        {orderConfirmed && (
+          <div className="mb-6">
+            <div className="mb-4">
+              <h3 className="text-2xl font-bold text-white mb-2">قيّم تجربتك</h3>
+              <p className="text-white/60">ساعد المشترين الآخرين من خلال مشاركة رأيك الصادق</p>
+            </div>
+            <ReviewForm 
+              orderId="12458"
+              sellerId="seller-123"
+              onSubmit={async (data) => {
+                console.log("Review submitted:", data);
+                // TODO: Backend integration to save review
+                await new Promise(resolve => setTimeout(resolve, 1000));
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {/* Glow effects */}

@@ -159,11 +159,14 @@ const Profile = () => {
               
               {/* Rating Display - Only show if reviews exist */}
               {user.average_rating && user.total_reviews > 0 ? (
-                <div className="flex items-center justify-center md:justify-start gap-2 mb-3">
+                <Link 
+                  to="/reviews/user-123"
+                  className="flex items-center justify-center md:justify-start gap-2 mb-3 hover:opacity-80 transition-opacity"
+                >
                   <Star className="h-5 w-5 text-[hsl(40,90%,55%)] fill-current" />
                   <span className="text-lg font-bold text-white">{user.average_rating.toFixed(1)}</span>
                   <span className="text-white/60">({user.total_reviews} تقييم)</span>
-                </div>
+                </Link>
               ) : null}
               
               {user.kycVerified ? (
