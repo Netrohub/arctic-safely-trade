@@ -83,7 +83,7 @@ const Help = () => {
         </Card>
 
         {/* Contact */}
-        <Card className="p-8 bg-white/5 border-white/10 backdrop-blur-sm">
+        <Card className="p-8 bg-white/5 border-white/10 backdrop-blur-sm mb-8">
           <h2 className="text-2xl font-bold text-white mb-6 text-center">تواصل معنا</h2>
           <p className="text-center text-white/70 mb-6">لم تجد إجابة؟ تواصل مع فريق الدعم عبر Discord</p>
           
@@ -106,6 +106,23 @@ const Help = () => {
               💬 جميع استفساراتك وطلبات الدعم يتم التعامل معها عبر سيرفر Discord الرسمي
             </p>
           </div>
+        </Card>
+
+        {/* Feedback Section */}
+        <Card className="p-8 bg-gradient-to-br from-[hsl(40,90%,15%)] to-[hsl(40,80%,10%)] border-[hsl(40,90%,55%,0.3)] backdrop-blur-sm text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">ساعدنا في التحسين</h2>
+          <p className="text-white/70 mb-6">
+            رأيك يهمنا! شارك تجربتك واقتراحاتك لتطوير المنصة
+          </p>
+          <Button 
+            asChild
+            size="lg"
+            className="bg-[hsl(40,90%,55%)] hover:bg-[hsl(40,90%,65%)] text-white font-bold border-0 shadow-[0_0_30px_rgba(234,179,8,0.4)]"
+          >
+            <Link to="/suggestions">
+              قيّم المنصة وشارك اقتراحاتك
+            </Link>
+          </Button>
         </Card>
       </div>
 
