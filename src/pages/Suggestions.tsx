@@ -156,7 +156,7 @@ const Suggestions = () => {
         </div>
 
         {/* Submit New Suggestion */}
-        <Card className="mb-8 border-primary/20 shadow-elegant">
+        <Card className="mb-8 border-border/50 backdrop-blur-sm bg-card/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <MessageSquare className="w-5 h-5 text-primary" />
@@ -170,7 +170,6 @@ const Suggestions = () => {
                 placeholder="عنوان الاقتراح"
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
-                className="bg-background/50"
               />
             </div>
             <div>
@@ -178,7 +177,7 @@ const Suggestions = () => {
                 placeholder="وصف الاقتراح بالتفصيل..."
                 value={newDescription}
                 onChange={(e) => setNewDescription(e.target.value)}
-                className="min-h-[100px] bg-background/50"
+                className="min-h-[100px]"
               />
             </div>
             <Button
@@ -193,14 +192,8 @@ const Suggestions = () => {
 
         {/* Filter Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-          <TabsList className="grid w-full grid-cols-4 bg-card">
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="all">الكل ({suggestions.length})</TabsTrigger>
-            <TabsTrigger value="pending">
-              قيد المراجعة ({suggestions.filter((s) => s.status === "pending").length})
-            </TabsTrigger>
-            <TabsTrigger value="approved">
-              موافق عليها ({suggestions.filter((s) => s.status === "approved").length})
-            </TabsTrigger>
             <TabsTrigger value="implemented">
               منفذة ({suggestions.filter((s) => s.status === "implemented").length})
             </TabsTrigger>
@@ -212,7 +205,7 @@ const Suggestions = () => {
           {sortedSuggestions.map((suggestion) => (
             <Card
               key={suggestion.id}
-              className="border-primary/10 hover:border-primary/30 transition-all hover:shadow-elegant"
+              className="border-border/50 hover:border-primary/50 transition-all backdrop-blur-sm bg-card/50"
             >
               <CardContent className="p-6">
                 <div className="flex gap-4">
