@@ -17,6 +17,7 @@ import Sell from "./pages/Sell";
 import SellWOS from "./pages/sell/SellWOS";
 import MyListings from "./pages/MyListings";
 import Disputes from "./pages/Disputes";
+import DisputeDetails from "./pages/DisputeDetails";
 import KYC from "./pages/KYC";
 import Admin from "./pages/Admin";
 import AdminUsers from "./pages/admin/Users";
@@ -61,6 +62,7 @@ const App = () => (
           <Route path="/sell/wos" element={<SellWOS />} />
           <Route path="/my-listings" element={<MyListings />} />
           <Route path="/disputes" element={<Disputes />} />
+          <Route path="/dispute/:id" element={<DisputeDetails />} />
           <Route path="/kyc" element={<KYC />} />
           <Route path="/admin" element={<Admin />}>
             <Route path="users" element={<AdminUsers />} />

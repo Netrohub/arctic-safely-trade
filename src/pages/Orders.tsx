@@ -224,7 +224,7 @@ const Orders = () => {
                       )}
                       {order.status === "disputed" && (
                         <Button asChild size="sm" variant="destructive">
-                          <Link to={`/disputes`}>
+                          <Link to={`/dispute/${order.id.replace('ORD-', 'DIS-')}`}>
                             <AlertCircle className="h-4 w-4 mr-2" />
                             عرض النزاع
                           </Link>

@@ -167,12 +167,14 @@ const Disputes = () => {
                   
                   <div className="flex gap-2">
                     <Button 
+                      asChild
                       size="sm" 
-                      onClick={() => handleOpenConversation(dispute)}
                       className="flex-1 gap-2 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white border-0"
                     >
-                      <MessageSquare className="h-4 w-4" />
-                      عرض المحادثة والرد
+                      <Link to={`/dispute/${dispute.id}`}>
+                        <MessageSquare className="h-4 w-4" />
+                        عرض المحادثة والرد
+                      </Link>
                     </Button>
                     
                     {dispute.status === "open" && !dispute.escalated && (
