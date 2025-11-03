@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Shield, Clock, CheckCircle2, AlertTriangle, Copy, Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { StatusBadge } from "@/components/StatusBadge";
+import { BackButton } from "@/components/BackButton";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { Shield, Clock, CheckCircle2, AlertTriangle, Copy, Eye, EyeOff, Package } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
 import { ReviewForm } from "@/components/ReviewForm";
 
@@ -13,14 +15,10 @@ const Order = () => {
   const [timeLeft, setTimeLeft] = useState("11:45:23");
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   const handleConfirmOrder = () => {
     setOrderConfirmed(true);
-    toast({
-      title: "تم تأكيد الطلب بنجاح",
-      description: "شكراً لك! تم تأكيد استلام الحساب بنجاح.",
-    });
+    toast.success("تم تأكيد استلام الحساب بنجاح");
   };
 
   const handleOpenDispute = () => {
@@ -53,12 +51,20 @@ const Order = () => {
 
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 md:px-6 py-8 max-w-4xl">
+        <BackButton fallbackPath="/orders" label="العودة للطلبات" />
+        
+        <Breadcrumb 
+          items={[
+            { label: "الرئيسية", href: "/" },
+            { label: "طلباتي", href: "/orders" },
+            { label: "تفاصيل الطلب" }
+          ]}
+        />
+
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
             <h1 className="text-4xl md:text-5xl font-black text-white">طلب #12458</h1>
-            <Badge className="bg-[hsl(40,90%,55%,0.2)] text-[hsl(40,90%,55%)] border-[hsl(40,90%,55%,0.3)]">
-              قيد المراجعة
-            </Badge>
+            <StatusBadge status="warning" label="قيد المراجعة" />
           </div>
           <p className="text-white/60">تم الشراء بتاريخ 24 مايو 2025</p>
         </div>
@@ -150,7 +156,8 @@ const Order = () => {
             size="lg"
             onClick={handleConfirmOrder}
             disabled={orderConfirmed}
-            className="gap-2 text-sm md:text-base py-4 md:py-6 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white font-bold border-0 disabled:opacity-50 disabled:cursor-not-allowed min-h-[56px] touch-manipulation active:scale-95 transition-transform"
+            variant="arctic"
+            className="gap-2 text-sm md:text-base py-4 md:py-6 font-bold disabled:opacity-50 disabled:cursor-not-allowed min-h-[56px] touch-manipulation active:scale-95 transition-transform"
           >
             <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
             <span className="hidden md:inline">
@@ -163,16 +170,40 @@ const Order = () => {
 
           <Button 
             size="lg"
-            variant="outline"
             onClick={handleOpenDispute}
             disabled={orderConfirmed}
-            className="gap-2 text-sm md:text-base py-4 md:py-6 bg-white/5 hover:bg-white/10 text-white border-white/20 font-bold disabled:opacity-50 disabled:cursor-not-allowed min-h-[56px] touch-manipulation active:scale-95 transition-transform"
+            variant="arctic-ghost"
+            className="gap-2 text-sm md:text-base py-4 md:py-6 font-bold disabled:opacity-50 disabled:cursor-not-allowed min-h-[56px] touch-manipulation active:scale-95 transition-transform"
           >
             <AlertTriangle className="h-5 w-5 flex-shrink-0" />
             <span className="hidden md:inline">فتح نزاع - هناك مشكلة</span>
             <span className="md:hidden">فتح نزاع</span>
           </Button>
         </div>
+        
+        {/* Quick Navigation - Show after order confirmation */}
+        {orderConfirmed && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+            <Button 
+              asChild
+              variant="outline"
+              className="bg-white/5 hover:bg-white/10 text-white border-white/20"
+            >
+              <Link to="/marketplace">
+                العودة للسوق
+              </Link>
+            </Button>
+            <Button 
+              asChild
+              variant="outline"
+              className="bg-white/5 hover:bg-white/10 text-white border-white/20"
+            >
+              <Link to="/orders">
+                عرض جميع الطلبات
+              </Link>
+            </Button>
+          </div>
+        )}
 
         {/* Order Details */}
         <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm mb-6">

@@ -2,15 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { User, Mail, Phone, ArrowRight, Save } from "lucide-react";
-import { Link } from "react-router-dom";
+import { BackButton } from "@/components/BackButton";
+import { User, Mail, Phone, Save } from "lucide-react";
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
 import { BottomNav } from "@/components/BottomNav";
 
 const EditProfile = () => {
-  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "محمد أحمد",
     email: "mohamed@example.com",
@@ -18,10 +17,7 @@ const EditProfile = () => {
   });
 
   const handleSave = () => {
-    toast({
-      title: "تم الحفظ بنجاح",
-      description: "تم تحديث معلومات الملف الشخصي",
-    });
+    toast.success("تم تحديث معلومات الملف الشخصي");
   };
 
   return (
@@ -36,10 +32,7 @@ const EditProfile = () => {
       <div className="relative z-10 container mx-auto px-4 md:px-6 py-8 max-w-2xl pb-24 md:pb-8">
         {/* Header */}
         <div className="mb-8">
-          <Link to="/profile" className="inline-flex items-center gap-2 text-[hsl(195,80%,70%)] hover:text-[hsl(195,80%,80%)] transition-colors mb-4">
-            <ArrowRight className="h-5 w-5" />
-            <span>العودة للملف الشخصي</span>
-          </Link>
+          <BackButton fallbackPath="/profile" label="العودة للملف الشخصي" />
           <h1 className="text-3xl md:text-4xl font-black text-white mb-2">تعديل الملف الشخصي</h1>
           <p className="text-white/60">قم بتحديث معلوماتك الشخصية</p>
         </div>
@@ -52,9 +45,9 @@ const EditProfile = () => {
               <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[hsl(195,80%,50%)] to-[hsl(200,70%,40%)] flex items-center justify-center">
                 <User className="h-12 w-12 text-white" />
               </div>
-              <Button variant="outline" className="bg-white/5 hover:bg-white/10 text-white border-white/20">
-                تغيير الصورة
-              </Button>
+          <Button variant="arctic-ghost" className="bg-white/5 hover:bg-white/10 text-white border-white/20">
+            تغيير الصورة
+          </Button>
             </div>
 
             {/* Name */}
@@ -104,7 +97,8 @@ const EditProfile = () => {
             {/* Save Button */}
             <Button 
               onClick={handleSave}
-              className="w-full gap-2 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white border-0"
+              variant="arctic"
+              className="w-full gap-2"
             >
               <Save className="h-5 w-5" />
               حفظ التغييرات

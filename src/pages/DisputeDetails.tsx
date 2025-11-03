@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Navbar } from "@/components/Navbar";
+import { BackButton } from "@/components/BackButton";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { 
   ArrowLeft, 
   AlertCircle, 
@@ -159,17 +161,15 @@ const DisputeDetails = () => {
       <Navbar />
 
       <div className="container mx-auto px-4 py-8 relative z-10 max-w-6xl">
-        {/* Back Button */}
-        <Button 
-          asChild 
-          variant="ghost" 
-          className="mb-6 text-[hsl(195,80%,70%)] hover:bg-white/10"
-        >
-          <Link to="/disputes">
-            <ArrowLeft className="h-4 w-4 ml-2" />
-            العودة للنزاعات
-          </Link>
-        </Button>
+        <BackButton fallbackPath="/disputes" label="العودة للنزاعات" />
+        
+        <Breadcrumb 
+          items={[
+            { label: "الرئيسية", href: "/" },
+            { label: "النزاعات", href: "/disputes" },
+            { label: `نزاع #${id}` }
+          ]}
+        />
 
         {/* Header */}
         <div className="mb-8">

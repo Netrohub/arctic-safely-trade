@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -39,7 +39,7 @@ const AdminUsers = () => {
               className="pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/40"
             />
           </div>
-          <Button className="gap-2 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white border-0">
+          <Button className="gap-2 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white border-0 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
             بحث
           </Button>
         </div>
@@ -54,15 +54,13 @@ const AdminUsers = () => {
                 <div className="flex items-center gap-3 mb-2">
                   <h3 className="text-lg font-bold text-white">{user.name}</h3>
                   {user.verified && (
-                    <ShieldCheck className="h-5 w-5 text-green-400" />
+                    <ShieldCheck className="h-5 w-5 text-[hsl(160,60%,50%)]" />
                   )}
-                  <Badge className={
-                    user.status === "active" 
-                      ? "bg-green-500/20 text-green-400 border-green-500/30"
-                      : "bg-red-500/20 text-red-400 border-red-500/30"
-                  }>
-                    {user.status === "active" ? "نشط" : "موقوف"}
-                  </Badge>
+                  <StatusBadge 
+                    status={user.status === "active" ? "success" : "error"}
+                    label={user.status === "active" ? "نشط" : "موقوف"}
+                    showIcon={false}
+                  />
                 </div>
                 <div className="text-sm text-white/60 space-y-1">
                   <div>البريد: {user.email}</div>
@@ -78,25 +76,25 @@ const AdminUsers = () => {
             <div className="flex gap-2 pt-3 border-t border-white/10">
               <Button 
                 size="sm" 
-                variant="outline" 
-                className="flex-1 gap-2 bg-white/5 hover:bg-white/10 text-white border-white/20"
+                variant="arctic-ghost"
+                className="flex-1 gap-2"
                 onClick={() => handleViewDetails(user)}
               >
                 <CheckCircle className="h-4 w-4" />
                 عرض التفاصيل
               </Button>
               {user.status === "active" ? (
-                <Button size="sm" variant="outline" className="gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/30">
+                <Button size="sm" variant="danger" className="gap-2">
                   <Ban className="h-4 w-4" />
                   إيقاف
                 </Button>
               ) : (
-                <Button size="sm" variant="outline" className="gap-2 bg-green-500/10 hover:bg-green-500/20 text-green-400 border-green-500/30">
+                <Button size="sm" className="gap-2 bg-[hsl(160,60%,50%)] hover:bg-[hsl(160,60%,60%)] text-white border-0">
                   <CheckCircle className="h-4 w-4" />
                   تفعيل
                 </Button>
               )}
-              <Button size="sm" variant="outline" className="gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/30">
+              <Button size="sm" variant="danger" className="gap-2">
                 <UserX className="h-4 w-4" />
                 حذف
               </Button>
@@ -122,17 +120,15 @@ const AdminUsers = () => {
             <div className="space-y-6 mt-4">
               {/* Status Badge */}
               <div className="flex gap-3">
-                <Badge className={
-                  selectedUser.status === "active" 
-                    ? "bg-green-500/20 text-green-400 border-green-500/30"
-                    : "bg-red-500/20 text-red-400 border-red-500/30"
-                }>
-                  {selectedUser.status === "active" ? "نشط" : "موقوف"}
-                </Badge>
+                <StatusBadge 
+                  status={selectedUser.status === "active" ? "success" : "error"}
+                  label={selectedUser.status === "active" ? "نشط" : "موقوف"}
+                />
                 {selectedUser.verified && (
-                  <Badge className="bg-[hsl(195,80%,50%,0.2)] text-[hsl(195,80%,70%)] border-[hsl(195,80%,70%,0.3)]">
-                    موثق
-                  </Badge>
+                  <StatusBadge 
+                    status="success"
+                    label="موثق"
+                  />
                 )}
               </div>
 
@@ -177,17 +173,17 @@ const AdminUsers = () => {
               {/* Actions */}
               <div className="flex gap-2 pt-2">
                 {selectedUser.status === "active" ? (
-                  <Button className="flex-1 gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/30">
+                  <Button variant="danger" className="flex-1 gap-2">
                     <Ban className="h-4 w-4" />
                     إيقاف المستخدم
                   </Button>
                 ) : (
-                  <Button className="flex-1 gap-2 bg-green-500/10 hover:bg-green-500/20 text-green-400 border-green-500/30">
+                  <Button className="flex-1 gap-2 bg-[hsl(160,60%,50%)] hover:bg-[hsl(160,60%,60%)] text-white border-0">
                     <CheckCircle className="h-4 w-4" />
                     تفعيل المستخدم
                   </Button>
                 )}
-                <Button className="flex-1 gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/30">
+                <Button variant="danger" className="flex-1 gap-2">
                   <UserX className="h-4 w-4" />
                   حذف المستخدم
                 </Button>

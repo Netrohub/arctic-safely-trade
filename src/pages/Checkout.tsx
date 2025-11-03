@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { BackButton } from "@/components/BackButton";
 import { Shield, CreditCard, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
@@ -34,6 +35,8 @@ const Checkout = () => {
 
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 md:px-6 py-8 max-w-5xl">
+        <BackButton fallbackPath="/marketplace" label="العودة للسوق" />
+        
         <div className="mb-8">
           <h1 className="text-4xl md:text-5xl font-black text-white mb-2">إتمام الشراء</h1>
           <p className="text-white/60">أكمل عملية الدفع بأمان</p>
@@ -119,7 +122,8 @@ const Checkout = () => {
               <Button 
                 asChild
                 size="lg" 
-                className="w-full gap-2 text-lg py-6 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white font-bold shadow-[0_0_30px_rgba(56,189,248,0.4)] border-0 min-h-[48px] touch-manipulation"
+                variant="arctic"
+                className="w-full gap-2 text-lg py-6 font-bold min-h-[48px] touch-manipulation"
               >
                 <Link to="/order/1">
                   <Shield className="h-5 w-5" />

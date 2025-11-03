@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { BackButton } from "@/components/BackButton";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Shield, Star, MapPin, ArrowRight, CheckCircle2, Users, Check, X, Zap, GraduationCap, PawPrint, Crown, Swords, MessageSquare } from "lucide-react";
 import stoveLv8 from "@/assets/stove_lv_8.png";
 import { Link, useParams } from "react-router-dom";
@@ -70,10 +72,15 @@ const ProductDetails = () => {
 
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 md:px-6 py-8">
-        <Link to="/marketplace" className="inline-flex items-center gap-2 text-white/60 hover:text-[hsl(195,80%,70%)] mb-6 transition-colors">
-          <ArrowRight className="h-4 w-4" />
-          العودة للسوق
-        </Link>
+        <BackButton fallbackPath="/marketplace" />
+        
+        <Breadcrumb 
+          items={[
+            { label: "الرئيسية", href: "/" },
+            { label: "السوق", href: "/marketplace" },
+            { label: "تفاصيل الحساب" }
+          ]}
+        />
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Left Column - Images */}

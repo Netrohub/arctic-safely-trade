@@ -134,7 +134,7 @@ const Marketplace = () => {
 
                   <div className="flex items-center justify-between pt-3 border-t border-white/10">
                     <span className="text-2xl font-black text-[hsl(195,80%,70%)]">{account.price}</span>
-                    <Button size="sm" className="bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white border-0">
+                    <Button size="sm" variant="arctic">
                       عرض التفاصيل
                     </Button>
                   </div>

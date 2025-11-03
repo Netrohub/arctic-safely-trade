@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Snowflake, LogIn, ChevronDown } from "lucide-react";
 import { NotificationBell } from "@/components/NotificationBell";
 import { MobileNav } from "@/components/MobileNav";
+import { GlobalSearch } from "@/components/GlobalSearch";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
@@ -53,7 +54,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                   التداول
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[220px] gap-2 p-3 bg-nav-background border border-nav-highlight/20 shadow-arctic backdrop-blur-xl">
+                  <ul className="grid w-[220px] gap-2 p-3 bg-nav-background/95 border border-nav-highlight/20 shadow-arctic backdrop-blur-xl z-50">
                     <li>
                       <Link to="/marketplace" className={cn(
                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
@@ -111,7 +112,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                   المجتمع
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[220px] gap-2 p-3 bg-nav-background border border-nav-highlight/20 shadow-arctic backdrop-blur-xl">
+                  <ul className="grid w-[220px] gap-2 p-3 bg-nav-background/95 border border-nav-highlight/20 shadow-arctic backdrop-blur-xl z-50">
                     <li>
                       <Link to="/leaderboard" className={cn(
                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
@@ -178,6 +179,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
           </NavigationMenu>
         )}
         <div className="flex items-center gap-2">
+          <GlobalSearch />
           {isAuthenticated ? (
             <NotificationBell />
           ) : (

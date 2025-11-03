@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NotificationBanner } from "@/components/NotificationBanner";
+import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import Home from "./pages/Home";
 import Marketplace from "./pages/Marketplace";
 import ProductDetails from "./pages/ProductDetails";
@@ -41,51 +42,61 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const AppContent = () => {
+  useKeyboardShortcuts();
+  
+  return (
+    <>
+      <NotificationBanner />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/marketplace" element={<Marketplace />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order/:id" element={<Order />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/members" element={<Members />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/sell" element={<Sell />} />
+        <Route path="/sell/wos" element={<SellWOS />} />
+        <Route path="/my-listings" element={<MyListings />} />
+        <Route path="/disputes" element={<Disputes />} />
+        <Route path="/dispute/:id" element={<DisputeDetails />} />
+        <Route path="/kyc" element={<KYC />} />
+        <Route path="/admin" element={<Admin />}>
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="listings" element={<AdminListings />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="disputes" element={<AdminDisputes />} />
+          <Route path="notifications" element={<AdminNotifications />} />
+          <Route path="settings" element={<AdminSettings />} />
+        </Route>
+        <Route path="/about" element={<About />} />
+        <Route path="/help" element={<Help />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/security" element={<Security />} />
+        <Route path="/wallet" element={<Wallet />} />
+        <Route path="/suggestions" element={<Suggestions />} />
+        <Route path="/reviews/:userId" element={<Reviews />} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <NotificationBanner />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/order/:id" element={<Order />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/members" element={<Members />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/sell" element={<Sell />} />
-          <Route path="/sell/wos" element={<SellWOS />} />
-          <Route path="/my-listings" element={<MyListings />} />
-          <Route path="/disputes" element={<Disputes />} />
-          <Route path="/dispute/:id" element={<DisputeDetails />} />
-          <Route path="/kyc" element={<KYC />} />
-          <Route path="/admin" element={<Admin />}>
-            <Route path="users" element={<AdminUsers />} />
-            <Route path="listings" element={<AdminListings />} />
-            <Route path="orders" element={<AdminOrders />} />
-            <Route path="disputes" element={<AdminDisputes />} />
-            <Route path="notifications" element={<AdminNotifications />} />
-            <Route path="settings" element={<AdminSettings />} />
-          </Route>
-          <Route path="/about" element={<About />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/security" element={<Security />} />
-          <Route path="/wallet" element={<Wallet />} />
-          <Route path="/suggestions" element={<Suggestions />} />
-          <Route path="/reviews/:userId" element={<Reviews />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AppContent />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
