@@ -9,6 +9,7 @@ import Marketplace from "./pages/Marketplace";
 import ProductDetails from "./pages/ProductDetails";
 import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
+import Orders from "./pages/Orders";
 import Members from "./pages/Members";
 import Leaderboard from "./pages/Leaderboard";
 import Auth from "./pages/Auth";
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order/:id" element={<Order />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/members" element={<Members />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/auth" element={<Auth />} />

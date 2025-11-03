@@ -89,6 +89,17 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                             </p>
                           </Link>
                         </li>
+                        <li>
+                          <Link to="/orders" className={cn(
+                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
+                            isActive("/orders") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
+                          )}>
+                            <div className="text-sm font-semibold leading-none">طلباتي</div>
+                            <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
+                              عرض جميع مشترياتك
+                            </p>
+                          </Link>
+                        </li>
                       </>
                     )}
                   </ul>
