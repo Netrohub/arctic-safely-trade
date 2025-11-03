@@ -1,15 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Shield, Star, MapPin, ArrowRight, CheckCircle2, Users, Check, X, Zap, GraduationCap, PawPrint, Crown, Swords, MessageSquare } from "lucide-react";
 import stoveLv8 from "@/assets/stove_lv_8.png";
 import { Link, useParams } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { ReviewCard } from "@/components/ReviewCard";
 import { StarRating } from "@/components/StarRating";
+import { useState } from "react";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
   
   // Mock seller reviews - replace with real API call
   const sellerReviews = [
@@ -75,7 +78,10 @@ const ProductDetails = () => {
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Left Column - Images */}
           <div className="space-y-4">
-            <Card className="overflow-hidden bg-white/5 border-white/10 backdrop-blur-sm">
+            <Card 
+              className="overflow-hidden bg-white/5 border-white/10 backdrop-blur-sm cursor-pointer hover:border-[hsl(195,80%,70%)] transition-all"
+              onClick={() => setEnlargedImage("main")}
+            >
               <div className="aspect-video bg-gradient-to-br from-[hsl(195,80%,30%)] to-[hsl(200,70%,20%)] flex items-center justify-center">
                 <Shield className="h-32 w-32 text-white/20" />
               </div>
@@ -83,7 +89,11 @@ const ProductDetails = () => {
             
             <div className="grid grid-cols-4 gap-3">
               {[1, 2, 3, 4].map((i) => (
-                <Card key={i} className="aspect-square bg-white/5 border-white/10 backdrop-blur-sm overflow-hidden">
+                <Card 
+                  key={i} 
+                  className="aspect-square bg-white/5 border-white/10 backdrop-blur-sm overflow-hidden cursor-pointer hover:border-[hsl(195,80%,70%)] transition-all"
+                  onClick={() => setEnlargedImage(`thumbnail-${i}`)}
+                >
                   <div className="w-full h-full bg-gradient-to-br from-[hsl(195,80%,30%)] to-[hsl(200,70%,20%)] flex items-center justify-center">
                     <Shield className="h-8 w-8 text-white/20" />
                   </div>
@@ -387,6 +397,15 @@ const ProductDetails = () => {
 
       {/* Glow effects */}
       <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-[hsl(195,80%,50%,0.1)] rounded-full blur-[120px] animate-pulse pointer-events-none" />
+      
+      {/* Image Enlarge Dialog */}
+      <Dialog open={!!enlargedImage} onOpenChange={() => setEnlargedImage(null)}>
+        <DialogContent className="max-w-4xl w-full bg-background/95 backdrop-blur-sm border-white/10">
+          <div className="aspect-video bg-gradient-to-br from-[hsl(195,80%,30%)] to-[hsl(200,70%,20%)] flex items-center justify-center rounded-lg">
+            <Shield className="h-64 w-64 text-white/20" />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
