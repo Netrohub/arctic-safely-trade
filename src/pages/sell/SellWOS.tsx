@@ -5,7 +5,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Upload, Plus, X, ShieldAlert, ArrowRight, Users, Zap, MapPin, GraduationCap, PawPrint, Crown, Swords } from "lucide-react";
+import { Upload, Plus, X, ShieldAlert, ArrowRight, Users, Zap, MapPin, GraduationCap, PawPrint, Crown, Swords, ZoomIn } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import stoveLv1 from "@/assets/stove_lv_1.png";
 import stoveLv2 from "@/assets/stove_lv_2.png";
 import stoveLv3 from "@/assets/stove_lv_3.png";
@@ -22,6 +23,10 @@ import { Navbar } from "@/components/Navbar";
 
 const SellWOS = () => {
   const [images, setImages] = useState<string[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [firstInvoice, setFirstInvoice] = useState<string | null>(null);
+  const [middleInvoices, setMiddleInvoices] = useState<string | null>(null);
+  const [lastInvoice, setLastInvoice] = useState<string | null>(null);
   // TODO: Replace with actual user verification status from backend
   const isVerified = false; // Change to true to test verified state
 
@@ -416,18 +421,39 @@ const SellWOS = () => {
             {/* Images */}
             <div className="space-y-4">
               <h2 className="text-xl font-bold text-white">صور الحساب</h2>
+              <p className="text-sm text-white/60">قم بتحميل صور (سكرين شوت) من جوالك - يمكنك رفع حتى 8 صور</p>
               
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {images.map((img, i) => (
-                  <div key={i} className="relative aspect-square bg-white/5 rounded-lg border border-white/10 overflow-hidden group">
-                    <img src={img} alt="" className="w-full h-full object-cover" />
-                    <button 
-                      className="absolute top-2 right-2 p-1 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                      onClick={() => setImages(images.filter((_, idx) => idx !== i))}
-                    >
-                      <X className="h-4 w-4 text-white" />
-                    </button>
-                  </div>
+                  <Dialog key={i}>
+                    <div className="relative group">
+                      <DialogTrigger asChild>
+                        <button 
+                          type="button"
+                          className="relative w-full bg-white/5 rounded-lg border border-white/10 overflow-hidden hover:border-[hsl(195,80%,50%)] transition-all cursor-pointer"
+                        >
+                          <img src={img} alt={`صورة ${i + 1}`} className="w-full h-auto object-contain max-h-48" />
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <ZoomIn className="h-8 w-8 text-white" />
+                          </div>
+                        </button>
+                      </DialogTrigger>
+                      <button 
+                        type="button"
+                        className="absolute -top-2 -right-2 p-1.5 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-red-600"
+                        onClick={() => setImages(images.filter((_, idx) => idx !== i))}
+                      >
+                        <X className="h-4 w-4 text-white" />
+                      </button>
+                    </div>
+                    <DialogContent className="max-w-4xl max-h-[90vh] p-2 bg-black/90 border-white/20">
+                      <img 
+                        src={img} 
+                        alt={`صورة ${i + 1}`} 
+                        className="w-full h-auto object-contain max-h-[85vh] mx-auto"
+                      />
+                    </DialogContent>
+                  </Dialog>
                 ))}
                 
                 <button
@@ -438,8 +464,6 @@ const SellWOS = () => {
                   <span className="text-sm text-white/60">رفع صورة</span>
                 </button>
               </div>
-              
-              <p className="text-sm text-white/60">يمكنك رفع حتى 8 صور</p>
             </div>
 
             {/* Account Details */}
@@ -468,11 +492,37 @@ const SellWOS = () => {
 
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-white mt-4">صور الفواتير (إلزامية)</h3>
-                <p className="text-sm text-white/60">سيتم عرض هذه الصور للمشتري بعد إتمام عملية الدفع</p>
+                <p className="text-sm text-white/60">قم بتحميل صور (سكرين شوت) الفواتير من جوالك - سيتم عرضها للمشتري بعد إتمام الدفع</p>
                 
                 <div>
                   <Label className="text-white mb-2 block">صورة أول فاتورة شراء</Label>
-                  <div className="flex items-center gap-4">
+                  {firstInvoice ? (
+                    <Dialog>
+                      <div className="relative inline-block group">
+                        <DialogTrigger asChild>
+                          <button 
+                            type="button"
+                            className="relative bg-white/5 rounded-lg border border-white/10 overflow-hidden hover:border-[hsl(195,80%,50%)] transition-all cursor-pointer"
+                          >
+                            <img src={firstInvoice} alt="أول فاتورة" className="h-32 w-auto object-contain" />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <ZoomIn className="h-6 w-6 text-white" />
+                            </div>
+                          </button>
+                        </DialogTrigger>
+                        <button 
+                          type="button"
+                          className="absolute -top-2 -right-2 p-1.5 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-red-600"
+                          onClick={() => setFirstInvoice(null)}
+                        >
+                          <X className="h-4 w-4 text-white" />
+                        </button>
+                      </div>
+                      <DialogContent className="max-w-4xl max-h-[90vh] p-2 bg-black/90 border-white/20">
+                        <img src={firstInvoice} alt="أول فاتورة" className="w-full h-auto object-contain max-h-[85vh] mx-auto" />
+                      </DialogContent>
+                    </Dialog>
+                  ) : (
                     <button
                       type="button"
                       className="px-4 py-3 bg-white/5 rounded-lg border-2 border-dashed border-white/20 hover:border-[hsl(195,80%,70%,0.5)] transition-colors flex items-center gap-2"
@@ -480,12 +530,38 @@ const SellWOS = () => {
                       <Upload className="h-5 w-5 text-white/40" />
                       <span className="text-sm text-white/60">اختر صورة</span>
                     </button>
-                  </div>
+                  )}
                 </div>
 
                 <div>
                   <Label className="text-white mb-2 block">صورة ثلاث فواتير مختلفة التوقيت</Label>
-                  <div className="flex items-center gap-4">
+                  {middleInvoices ? (
+                    <Dialog>
+                      <div className="relative inline-block group">
+                        <DialogTrigger asChild>
+                          <button 
+                            type="button"
+                            className="relative bg-white/5 rounded-lg border border-white/10 overflow-hidden hover:border-[hsl(195,80%,50%)] transition-all cursor-pointer"
+                          >
+                            <img src={middleInvoices} alt="فواتير متعددة" className="h-32 w-auto object-contain" />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <ZoomIn className="h-6 w-6 text-white" />
+                            </div>
+                          </button>
+                        </DialogTrigger>
+                        <button 
+                          type="button"
+                          className="absolute -top-2 -right-2 p-1.5 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-red-600"
+                          onClick={() => setMiddleInvoices(null)}
+                        >
+                          <X className="h-4 w-4 text-white" />
+                        </button>
+                      </div>
+                      <DialogContent className="max-w-4xl max-h-[90vh] p-2 bg-black/90 border-white/20">
+                        <img src={middleInvoices} alt="فواتير متعددة" className="w-full h-auto object-contain max-h-[85vh] mx-auto" />
+                      </DialogContent>
+                    </Dialog>
+                  ) : (
                     <button
                       type="button"
                       className="px-4 py-3 bg-white/5 rounded-lg border-2 border-dashed border-white/20 hover:border-[hsl(195,80%,70%,0.5)] transition-colors flex items-center gap-2"
@@ -493,12 +569,38 @@ const SellWOS = () => {
                       <Upload className="h-5 w-5 text-white/40" />
                       <span className="text-sm text-white/60">اختر صورة</span>
                     </button>
-                  </div>
+                  )}
                 </div>
 
                 <div>
                   <Label className="text-white mb-2 block">صورة آخر فاتورة شراء</Label>
-                  <div className="flex items-center gap-4">
+                  {lastInvoice ? (
+                    <Dialog>
+                      <div className="relative inline-block group">
+                        <DialogTrigger asChild>
+                          <button 
+                            type="button"
+                            className="relative bg-white/5 rounded-lg border border-white/10 overflow-hidden hover:border-[hsl(195,80%,50%)] transition-all cursor-pointer"
+                          >
+                            <img src={lastInvoice} alt="آخر فاتورة" className="h-32 w-auto object-contain" />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <ZoomIn className="h-6 w-6 text-white" />
+                            </div>
+                          </button>
+                        </DialogTrigger>
+                        <button 
+                          type="button"
+                          className="absolute -top-2 -right-2 p-1.5 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10 hover:bg-red-600"
+                          onClick={() => setLastInvoice(null)}
+                        >
+                          <X className="h-4 w-4 text-white" />
+                        </button>
+                      </div>
+                      <DialogContent className="max-w-4xl max-h-[90vh] p-2 bg-black/90 border-white/20">
+                        <img src={lastInvoice} alt="آخر فاتورة" className="w-full h-auto object-contain max-h-[85vh] mx-auto" />
+                      </DialogContent>
+                    </Dialog>
+                  ) : (
                     <button
                       type="button"
                       className="px-4 py-3 bg-white/5 rounded-lg border-2 border-dashed border-white/20 hover:border-[hsl(195,80%,70%,0.5)] transition-colors flex items-center gap-2"
@@ -506,7 +608,7 @@ const SellWOS = () => {
                       <Upload className="h-5 w-5 text-white/40" />
                       <span className="text-sm text-white/60">اختر صورة</span>
                     </button>
-                  </div>
+                  )}
                 </div>
               </div>
 
