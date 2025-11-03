@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { StatusBadge } from "@/components/StatusBadge";
 import { Wallet as WalletIcon, ArrowDownToLine, ArrowUpFromLine, Clock, CheckCircle2, XCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
@@ -8,29 +9,16 @@ import { BottomNav } from "@/components/BottomNav";
 const Wallet = () => {
   // Mock data for transactions
   const transactions = [
-    { id: 1, type: "deposit", amount: 500, status: "completed", date: "2025-01-15 14:30", method: "تاب" },
-    { id: 2, type: "withdraw", amount: 200, status: "pending", date: "2025-01-14 10:20", method: "تاب" },
-    { id: 3, type: "deposit", amount: 1000, status: "completed", date: "2025-01-13 16:45", method: "تاب" },
-    { id: 4, type: "withdraw", amount: 300, status: "completed", date: "2025-01-12 09:15", method: "تاب" },
-    { id: 5, type: "deposit", amount: 750, status: "failed", date: "2025-01-11 12:00", method: "تاب" },
+    { id: 1, type: "deposit", amount: 500, status: "completed" as const, date: "2025-01-15 14:30", method: "تاب" },
+    { id: 2, type: "withdraw", amount: 200, status: "pending" as const, date: "2025-01-14 10:20", method: "تاب" },
+    { id: 3, type: "deposit", amount: 1000, status: "completed" as const, date: "2025-01-13 16:45", method: "تاب" },
+    { id: 4, type: "withdraw", amount: 300, status: "completed" as const, date: "2025-01-12 09:15", method: "تاب" },
+    { id: 5, type: "deposit", amount: 750, status: "failed" as const, date: "2025-01-11 12:00", method: "تاب" },
   ];
 
   const balance = 1750; // Mock balance
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "completed":
-        return <CheckCircle2 className="h-5 w-5 text-green-400" />;
-      case "pending":
-        return <Clock className="h-5 w-5 text-yellow-400" />;
-      case "failed":
-        return <XCircle className="h-5 w-5 text-red-400" />;
-      default:
-        return null;
-    }
-  };
-
-  const getStatusText = (status: string) => {
+  const getStatusLabel = (status: string) => {
     switch (status) {
       case "completed":
         return "مكتمل";
@@ -40,6 +28,19 @@ const Wallet = () => {
         return "فشل";
       default:
         return status;
+    }
+  };
+
+  const getStatusType = (status: string): "success" | "warning" | "error" | "pending" => {
+    switch (status) {
+      case "completed":
+        return "success";
+      case "pending":
+        return "pending";
+      case "failed":
+        return "error";
+      default:
+        return "pending";
     }
   };
 
@@ -111,31 +112,31 @@ const Wallet = () => {
 
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
+          <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm hover:border-[hsl(195,80%,70%,0.3)] transition-all">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-white/60 text-sm mb-1">إجمالي الإيداعات</p>
                 <p className="text-2xl font-bold text-white">2,250 ريال</p>
               </div>
-              <div className="p-3 rounded-lg bg-green-500/20 border border-green-500/30">
-                <ArrowDownToLine className="h-6 w-6 text-green-400" />
+              <div className="p-3 rounded-lg bg-[hsl(160,60%,50%,0.2)] border border-[hsl(160,60%,50%,0.3)]">
+                <ArrowDownToLine className="h-6 w-6 text-[hsl(160,60%,50%)]" />
               </div>
             </div>
           </Card>
 
-          <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
+          <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm hover:border-[hsl(195,80%,70%,0.3)] transition-all">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-white/60 text-sm mb-1">إجمالي السحوبات</p>
                 <p className="text-2xl font-bold text-white">500 ريال</p>
               </div>
-              <div className="p-3 rounded-lg bg-blue-500/20 border border-blue-500/30">
-                <ArrowUpFromLine className="h-6 w-6 text-blue-400" />
+              <div className="p-3 rounded-lg bg-[hsl(195,80%,70%,0.2)] border border-[hsl(195,80%,70%,0.3)]">
+                <ArrowUpFromLine className="h-6 w-6 text-[hsl(195,80%,70%)]" />
               </div>
             </div>
           </Card>
 
-          <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm">
+          <Card className="p-6 bg-white/5 border-white/10 backdrop-blur-sm hover:border-[hsl(195,80%,70%,0.3)] transition-all">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-white/60 text-sm mb-1">المعاملات الشهرية</p>
@@ -161,13 +162,13 @@ const Wallet = () => {
                 <div className="flex items-center gap-4">
                   <div className={`p-3 rounded-lg ${
                     transaction.type === "deposit" 
-                      ? "bg-green-500/20 border border-green-500/30" 
-                      : "bg-blue-500/20 border border-blue-500/30"
+                      ? "bg-[hsl(160,60%,50%,0.2)] border border-[hsl(160,60%,50%,0.3)]" 
+                      : "bg-[hsl(195,80%,70%,0.2)] border border-[hsl(195,80%,70%,0.3)]"
                   }`}>
                     {transaction.type === "deposit" ? (
-                      <ArrowDownToLine className="h-5 w-5 text-green-400" />
+                      <ArrowDownToLine className="h-5 w-5 text-[hsl(160,60%,50%)]" />
                     ) : (
-                      <ArrowUpFromLine className="h-5 w-5 text-blue-400" />
+                      <ArrowUpFromLine className="h-5 w-5 text-[hsl(195,80%,70%)]" />
                     )}
                   </div>
                   <div>
@@ -182,13 +183,17 @@ const Wallet = () => {
                 <div className="flex items-center gap-6">
                   <div className="text-left">
                     <p className={`text-xl font-bold ${
-                      transaction.type === "deposit" ? "text-green-400" : "text-blue-400"
+                      transaction.type === "deposit" ? "text-[hsl(160,60%,50%)]" : "text-[hsl(195,80%,70%)]"
                     }`}>
                       {transaction.type === "deposit" ? "+" : "-"}{transaction.amount} ريال
                     </p>
-                    <div className="flex items-center gap-2 justify-end mt-1">
-                      {getStatusIcon(transaction.status)}
-                      <span className="text-xs text-white/60">{getStatusText(transaction.status)}</span>
+                    <div className="flex items-center justify-end mt-1">
+                      <StatusBadge 
+                        status={getStatusType(transaction.status)} 
+                        label={getStatusLabel(transaction.status)}
+                        showIcon={false}
+                        className="text-xs"
+                      />
                     </div>
                   </div>
                 </div>
@@ -216,7 +221,8 @@ const Wallet = () => {
             </div>
             <Button 
               asChild
-              className="bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white font-bold border-0"
+              variant="arctic"
+              className="font-bold border-0"
             >
               <Link to="/help">
                 تواصل معنا
