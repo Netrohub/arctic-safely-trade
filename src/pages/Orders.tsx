@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import { StatusBadge } from "@/components/StatusBadge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,32 +60,22 @@ const Orders = () => {
   ];
 
   const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "delivered":
-        return <CheckCircle2 className="h-4 w-4" />;
-      case "active":
-        return <Clock className="h-4 w-4" />;
-      case "disputed":
-        return <AlertCircle className="h-4 w-4" />;
-      case "cancelled":
-        return <XCircle className="h-4 w-4" />;
-      default:
-        return <Package className="h-4 w-4" />;
-    }
+    // Icons handled by StatusBadge component
+    return null;
   };
 
-  const getStatusVariant = (status: string) => {
+  const getStatusType = (status: string): "success" | "warning" | "error" | "info" | "pending" => {
     switch (status) {
       case "delivered":
-        return "default";
+        return "success";
       case "active":
-        return "secondary";
+        return "info";
       case "disputed":
-        return "destructive";
+        return "error";
       case "cancelled":
-        return "outline";
+        return "warning";
       default:
-        return "secondary";
+        return "info";
     }
   };
 
@@ -181,10 +172,10 @@ const Orders = () => {
                         </div>
                         <p className="text-sm text-white/60">رقم الطلب: {order.id}</p>
                       </div>
-                      <Badge variant={getStatusVariant(order.status)} className="w-fit gap-1">
-                        {getStatusIcon(order.status)}
-                        {order.statusArabic}
-                      </Badge>
+                      <StatusBadge 
+                        status={getStatusType(order.status)} 
+                        label={order.statusArabic}
+                      />
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
@@ -208,14 +199,14 @@ const Orders = () => {
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap gap-2 pt-2">
-                      <Button asChild size="sm" className="bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white">
+                      <Button asChild size="sm" variant="arctic">
                         <Link to={`/order/${order.id}`}>
                           <Eye className="h-4 w-4 mr-2" />
                           عرض التفاصيل
                         </Link>
                       </Button>
                       {order.status === "active" && (
-                        <Button asChild size="sm" className="bg-white/10 hover:bg-white/20 text-white border-[hsl(195,80%,70%,0.3)]">
+                        <Button asChild size="sm" variant="arctic-ghost">
                           <Link to={`/disputes`}>
                             <MessageSquare className="h-4 w-4 mr-2" />
                             التواصل مع البائع
@@ -223,7 +214,7 @@ const Orders = () => {
                         </Button>
                       )}
                       {order.status === "disputed" && (
-                        <Button asChild size="sm" variant="destructive">
+                        <Button asChild size="sm" variant="danger">
                           <Link to={`/dispute/${order.id.replace('ORD-', 'DIS-')}`}>
                             <AlertCircle className="h-4 w-4 mr-2" />
                             عرض النزاع

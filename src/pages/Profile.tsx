@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/StatusBadge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { 
   User, 
@@ -170,14 +170,9 @@ const Profile = () => {
               ) : null}
               
               {user.kycVerified ? (
-                <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
-                  <Shield className="h-3 w-3 ml-1" />
-                  حساب موثق
-                </Badge>
+                <StatusBadge status="success" label="حساب موثق" />
               ) : (
-                <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
-                  يتطلب توثيق KYC
-                </Badge>
+                <StatusBadge status="warning" label="يتطلب توثيق KYC" />
               )}
             </div>
           </div>
@@ -208,24 +203,24 @@ const Profile = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 pb-6 border-b border-white/10">
-              <div className="text-center p-4 bg-white/5 rounded-lg">
+              <Card className="text-center p-4 bg-white/5 rounded-lg border-white/10 hover:border-[hsl(195,80%,70%,0.3)] transition-all">
                 <div className="text-2xl font-black text-[hsl(195,80%,70%)] mb-1">{user.totalSales}</div>
                 <div className="text-sm text-white/60">عدد المبيعات</div>
-              </div>
-              <div className="text-center p-4 bg-white/5 rounded-lg">
+              </Card>
+              <Card className="text-center p-4 bg-white/5 rounded-lg border-white/10 hover:border-[hsl(195,80%,70%,0.3)] transition-all">
                 <div className="text-2xl font-black text-[hsl(195,80%,70%)] mb-1">{user.totalPurchases}</div>
                 <div className="text-sm text-white/60">عدد المشتريات</div>
-              </div>
-              <div className="text-center p-4 bg-white/5 rounded-lg">
+              </Card>
+              <Card className="text-center p-4 bg-white/5 rounded-lg border-white/10 hover:border-[hsl(195,80%,70%,0.3)] transition-all">
                 <div className="text-2xl font-black text-[hsl(195,80%,70%)] mb-1">{user.memberSince}</div>
                 <div className="text-sm text-white/60">عضو منذ</div>
-              </div>
+              </Card>
               
               {/* Wallet Balance Quick View */}
-              <div className="text-center p-4 bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-lg">
+              <Card className="text-center p-4 bg-gradient-to-br from-[hsl(160,60%,50%,0.1)] to-[hsl(160,70%,40%,0.1)] border border-[hsl(160,60%,50%,0.2)] rounded-lg hover:border-[hsl(160,60%,50%,0.3)] transition-all">
                 <div className="flex items-center justify-center gap-2 mb-1">
-                  <Wallet className="h-5 w-5 text-green-400" />
-                  <div className="text-2xl font-black text-green-400">
+                  <Wallet className="h-5 w-5 text-[hsl(160,60%,50%)]" />
+                  <div className="text-2xl font-black text-[hsl(160,60%,50%)]">
                     ${userWallet?.available_balance?.toLocaleString('en-US') || 0}
                   </div>
                 </div>
@@ -234,11 +229,11 @@ const Profile = () => {
                   asChild 
                   size="sm" 
                   variant="ghost"
-                  className="h-auto py-1 text-xs text-green-400 hover:text-green-300 hover:bg-green-500/10"
+                  className="h-auto py-1 text-xs text-[hsl(160,60%,50%)] hover:text-[hsl(160,60%,60%)] hover:bg-[hsl(160,60%,50%,0.1)]"
                 >
                   <Link to="/wallet">عرض المحفظة →</Link>
                 </Button>
-              </div>
+              </Card>
             </div>
           )}
 
@@ -248,15 +243,9 @@ const Profile = () => {
               <Mail className="h-5 w-5 text-[hsl(195,80%,70%)]" />
               <span>{user.email}</span>
               {user.email_verified_at ? (
-                <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                  <CheckCircle className="h-3 w-3 mr-1" />
-                  موثق
-                </Badge>
+                <StatusBadge status="success" label="موثق" className="text-xs" showIcon={true} />
               ) : (
-                <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 text-xs">
-                  <AlertCircle className="h-3 w-3 mr-1" />
-                  غير موثق
-                </Badge>
+                <StatusBadge status="warning" label="غير موثق" className="text-xs" showIcon={true} />
               )}
             </div>
             
@@ -265,15 +254,9 @@ const Profile = () => {
                 <Phone className="h-5 w-5 text-[hsl(195,80%,70%)]" />
                 <span>{user.phone}</span>
                 {user.phone_verified_at ? (
-                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                    <CheckCircle className="h-3 w-3 mr-1" />
-                    موثق
-                  </Badge>
+                  <StatusBadge status="success" label="موثق" className="text-xs" showIcon={true} />
                 ) : (
-                  <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 text-xs">
-                    <AlertCircle className="h-3 w-3 mr-1" />
-                    غير موثق
-                  </Badge>
+                  <StatusBadge status="warning" label="غير موثق" className="text-xs" showIcon={true} />
                 )}
               </div>
             )}
@@ -330,7 +313,7 @@ const Profile = () => {
                 </div>
                 <Shield className="h-8 w-8 text-yellow-400" />
               </div>
-              <Button asChild className="w-full gap-2 bg-yellow-500 hover:bg-yellow-600 text-white border-0 min-h-[48px] text-sm md:text-base">
+              <Button asChild className="w-full gap-2 bg-[hsl(40,90%,55%)] hover:bg-[hsl(40,90%,60%)] text-white border-0 min-h-[48px] text-sm md:text-base">
                 <Link to="/kyc">
                   بدء التوثيق
                 </Link>
@@ -346,7 +329,7 @@ const Profile = () => {
               </div>
               <Package className="h-8 w-8 text-[hsl(195,80%,70%)]" />
             </div>
-            <Button asChild className="w-full gap-2 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white border-0 min-h-[48px] text-sm md:text-base">
+            <Button asChild className="w-full gap-2 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white border-0 min-h-[48px] text-sm md:text-base shadow-[0_0_20px_rgba(56,189,248,0.3)]">
               <Link to="/my-listings">
                 عرض قوائمي
               </Link>
@@ -381,7 +364,7 @@ const Profile = () => {
             <Button 
               asChild
               variant="outline" 
-              className="w-full justify-start gap-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/30 min-h-[48px] text-sm md:text-base"
+              className="w-full justify-start gap-3 bg-[hsl(0,70%,60%,0.1)] hover:bg-[hsl(0,70%,60%,0.2)] text-[hsl(0,70%,60%)] border-[hsl(0,70%,60%,0.3)] min-h-[48px] text-sm md:text-base"
             >
               <Link to="/">
                 <LogOut className="h-5 w-5 flex-shrink-0" />

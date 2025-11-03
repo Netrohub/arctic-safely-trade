@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { StatusBadge } from "@/components/StatusBadge";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AlertTriangle, Upload, MessageSquare, Clock, Package, ChevronDown, ShieldAlert, User, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Navbar } from "@/components/Navbar";
 import { MobileNav } from "@/components/MobileNav";
 
@@ -50,7 +50,6 @@ const Disputes = () => {
       ]
     },
   ]);
-  const { toast } = useToast();
   
   // طلبات المستخدم
   const myOrders = [
@@ -67,10 +66,7 @@ const Disputes = () => {
   const handleSendMessage = () => {
     if (!newMessage.trim()) return;
     
-    toast({
-      title: "تم إرسال الرسالة",
-      description: "تم إرسال رسالتك بنجاح",
-    });
+    toast.success("تم إرسال رسالتك بنجاح");
     setNewMessage("");
   };
 
@@ -83,24 +79,29 @@ const Disputes = () => {
       )
     );
     
-    toast({
-      title: "تم التصعيد للإدارة",
-      description: "سيتم مراجعة النزاع من قبل الإدارة خلال 24 ساعة",
-    });
+    toast.success("سيتم مراجعة النزاع من قبل الإدارة خلال 24 ساعة");
   };
 
-  const getStatusBadge = (status: string) => {
-    const styles = {
-      open: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-      escalated: "bg-red-500/20 text-red-400 border-red-500/30",
-      resolved: "bg-green-500/20 text-green-400 border-green-500/30",
-    };
+  const getStatusType = (status: string): "success" | "warning" | "error" | "info" | "pending" => {
+    switch (status) {
+      case "open":
+        return "warning";
+      case "escalated":
+        return "error";
+      case "resolved":
+        return "success";
+      default:
+        return "info";
+    }
+  };
+
+  const getStatusLabel = (status: string): string => {
     const labels = { 
       open: "محادثة مع البائع", 
       escalated: "تم التصعيد للإدارة", 
       resolved: "تم الحل" 
     };
-    return <Badge className={styles[status as keyof typeof styles]}>{labels[status as keyof typeof labels]}</Badge>;
+    return labels[status as keyof typeof labels] || status;
   };
 
   return (
@@ -131,9 +132,12 @@ const Disputes = () => {
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <AlertTriangle className="h-5 w-5 text-red-400" />
+                        <AlertTriangle className="h-5 w-5 text-[hsl(0,70%,60%)]" />
                         <span className="text-sm text-white/60">{dispute.orderId}</span>
-                        {getStatusBadge(dispute.status)}
+                        <StatusBadge 
+                          status={getStatusType(dispute.status)} 
+                          label={getStatusLabel(dispute.status)}
+                        />
                       </div>
                       <h3 className="text-lg font-bold text-white mb-2">{dispute.title}</h3>
                       <p className="text-sm text-white/60 mb-3">{dispute.description}</p>
@@ -169,7 +173,8 @@ const Disputes = () => {
                     <Button 
                       asChild
                       size="sm" 
-                      className="flex-1 gap-2 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white border-0"
+                      variant="arctic"
+                      className="flex-1 gap-2 border-0"
                     >
                       <Link to={`/dispute/${dispute.id}`}>
                         <MessageSquare className="h-4 w-4" />
@@ -180,9 +185,9 @@ const Disputes = () => {
                     {dispute.status === "open" && !dispute.escalated && (
                       <Button 
                         size="sm" 
-                        variant="outline"
+                        variant="danger"
                         onClick={() => handleEscalate(dispute.id)}
-                        className="gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/30"
+                        className="gap-2"
                       >
                         <ShieldAlert className="h-4 w-4" />
                         تصعيد للإدارة
@@ -191,8 +196,8 @@ const Disputes = () => {
                   </div>
 
                   {dispute.status === "escalated" && (
-                    <div className="mt-3 p-3 bg-red-500/10 rounded-lg border border-red-500/30">
-                      <div className="flex items-center gap-2 text-sm text-red-400">
+                    <div className="mt-3 p-3 bg-[hsl(0,70%,60%,0.1)] rounded-lg border border-[hsl(0,70%,60%,0.3)]">
+                      <div className="flex items-center gap-2 text-sm text-[hsl(0,70%,60%)]">
                         <ShieldAlert className="h-4 w-4" />
                         <span>تم تصعيد هذا النزاع للإدارة - ستتم المراجعة خلال 24 ساعة</span>
                       </div>
@@ -223,9 +228,12 @@ const Disputes = () => {
                         <div className="flex items-center gap-2 mb-1">
                           <span className="text-sm font-bold text-white/60">{order.id}</span>
                           {hasDispute && (
-                            <Badge className="bg-red-500/20 text-red-400 border-red-500/30 text-xs">
-                              يوجد نزاع مفتوح
-                            </Badge>
+                            <StatusBadge 
+                              status="error" 
+                              label="يوجد نزاع مفتوح" 
+                              className="text-xs"
+                              showIcon={false}
+                            />
                           )}
                         </div>
                         <h3 className="font-bold text-white mb-1">{order.title}</h3>

@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import { StatusBadge } from "@/components/StatusBadge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -99,30 +100,35 @@ const DisputeDetails = () => {
   };
 
   const getStatusColor = (status: string) => {
+    // Not needed anymore - using StatusBadge component
+    return "";
+  };
+
+  const getStatusType = (status: string): "success" | "warning" | "error" | "info" | "pending" => {
     switch (status) {
       case "open":
-        return "bg-[hsl(40,90%,55%,0.2)] text-[hsl(40,90%,55%)] border-[hsl(40,90%,55%,0.3)]";
+        return "warning";
       case "in_review":
-        return "bg-[hsl(195,80%,50%,0.2)] text-[hsl(195,80%,70%)] border-[hsl(195,80%,70%,0.3)]";
+        return "info";
       case "resolved":
-        return "bg-[hsl(160,60%,45%,0.2)] text-[hsl(160,60%,45%)] border-[hsl(160,60%,45%,0.3)]";
+        return "success";
       case "closed":
-        return "bg-white/10 text-white/70 border-white/20";
+        return "info";
       default:
-        return "bg-white/10 text-white border-white/20";
+        return "info";
     }
   };
 
-  const getUserBadgeColor = (role: string) => {
+  const getUserStatusType = (role: string): "success" | "warning" | "error" | "info" | "pending" => {
     switch (role) {
       case "buyer":
-        return "bg-[hsl(195,80%,50%,0.2)] text-[hsl(195,80%,70%)] border-[hsl(195,80%,70%,0.3)]";
+        return "info";
       case "seller":
-        return "bg-[hsl(280,70%,55%,0.2)] text-[hsl(280,70%,65%)] border-[hsl(280,70%,65%,0.3)]";
+        return "warning";
       case "admin":
-        return "bg-[hsl(0,70%,55%,0.2)] text-[hsl(0,70%,65%)] border-[hsl(0,70%,65%,0.3)]";
+        return "error";
       default:
-        return "bg-white/10 text-white border-white/20";
+        return "info";
     }
   };
 
@@ -177,14 +183,14 @@ const DisputeDetails = () => {
               </p>
             </div>
             <div className="flex gap-2">
-              <Badge className={getStatusColor(dispute.status)}>
-                <Clock className="h-3 w-3 ml-1" />
-                {dispute.statusArabic}
-              </Badge>
-              <Badge className="bg-[hsl(0,70%,55%,0.2)] text-[hsl(0,70%,65%)] border-[hsl(0,70%,65%,0.3)]">
-                <AlertCircle className="h-3 w-3 ml-1" />
-                أولوية {dispute.priorityArabic}
-              </Badge>
+              <StatusBadge 
+                status={getStatusType(dispute.status)} 
+                label={dispute.statusArabic}
+              />
+              <StatusBadge 
+                status="error" 
+                label={`أولوية ${dispute.priorityArabic}`}
+              />
             </div>
           </div>
         </div>
@@ -237,9 +243,12 @@ const DisputeDetails = () => {
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <span className="font-bold text-white">{event.user}</span>
-                          <Badge className={getUserBadgeColor(event.role)}>
-                            {event.roleArabic}
-                          </Badge>
+                          <StatusBadge 
+                            status={getUserStatusType(event.role)} 
+                            label={event.roleArabic}
+                            showIcon={false}
+                            className="text-xs"
+                          />
                           <span className="text-white/50 text-sm mr-auto">{event.date}</span>
                         </div>
                         
@@ -286,15 +295,14 @@ const DisputeDetails = () => {
                 <div className="flex flex-wrap gap-2">
                   <Button 
                     onClick={handleSendMessage}
-                    className="bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white shadow-[0_0_30px_rgba(56,189,248,0.4)]"
+                    variant="arctic"
                   >
                     <Send className="h-4 w-4 ml-2" />
                     إرسال الرد
                   </Button>
                   <Button 
                     onClick={handleUploadEvidence}
-                    variant="outline"
-                    className="bg-white/10 hover:bg-white/20 text-white border-[hsl(195,80%,70%,0.3)]"
+                    variant="arctic-ghost"
                   >
                     <Upload className="h-4 w-4 ml-2" />
                     رفع دليل
