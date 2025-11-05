@@ -17,8 +17,12 @@ import { z } from "zod";
 const tiktokSchema = z.object({
   username: z.string().trim().min(1, "Username is required").max(100),
   description: z.string().trim().min(10, "Description must be at least 10 characters").max(1000),
+  price: z.string().trim().min(1, "Price is required"),
   hasPrimaryEmail: z.boolean(),
   hasPhoneNumber: z.boolean(),
+  agreeToPledge: z.boolean().refine((val) => val === true, {
+    message: "You must agree to the pledge",
+  }),
 });
 
 const TikTok = () => {
@@ -30,8 +34,10 @@ const TikTok = () => {
   const [formData, setFormData] = useState({
     username: "",
     description: "",
+    price: "",
     hasPrimaryEmail: false,
     hasPhoneNumber: false,
+    agreeToPledge: false,
   });
 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -150,6 +156,22 @@ const TikTok = () => {
                 />
               </div>
 
+              {/* Price */}
+              <div className="space-y-2">
+                <Label htmlFor="price" className="text-white">
+                  {t('sell.price')}
+                </Label>
+                <Input
+                  id="price"
+                  type="number"
+                  placeholder="100"
+                  value={formData.price}
+                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                  required
+                />
+              </div>
+
               {/* Description */}
               <div className="space-y-2">
                 <Label htmlFor="description" className="text-white">
@@ -203,6 +225,26 @@ const TikTok = () => {
                     className="text-white cursor-pointer"
                   >
                     {t('sell.social.accountLinkedToPhone')}
+                  </Label>
+                </div>
+              </div>
+
+              {/* Pledge Agreement */}
+              <div className="space-y-4 p-4 bg-white/5 border border-white/10 rounded-lg">
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="pledge"
+                    checked={formData.agreeToPledge}
+                    onCheckedChange={(checked) => 
+                      setFormData({ ...formData, agreeToPledge: checked as boolean })
+                    }
+                    className="border-white/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary mt-1"
+                  />
+                  <Label
+                    htmlFor="pledge"
+                    className="text-white/90 cursor-pointer text-sm leading-relaxed"
+                  >
+                    {t('sell.social.pledge')}
                   </Label>
                 </div>
               </div>
