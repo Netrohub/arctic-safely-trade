@@ -74,21 +74,40 @@ const TikTok = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background" dir={language === 'ar' ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen relative overflow-hidden" dir={language === 'ar' ? 'rtl' : 'ltr'}>
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(280,70%,15%)] via-[hsl(300,60%,25%)] to-[hsl(280,70%,15%)]" />
+      
+      {/* Particles */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white/40 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDuration: `${2 + Math.random() * 3}s`,
+              animationDelay: `${Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
       <Navbar />
       
-      <div className="container mx-auto px-4 py-8 max-w-3xl">
-        <BackButton />
+      <div className="relative z-10 container mx-auto px-4 py-8 max-w-3xl">
+        <BackButton className="text-white/80 hover:text-white" />
         
-        <Card className="mt-8">
+        <Card className="mt-8 bg-white/5 border-white/10 backdrop-blur-sm">
           <CardHeader>
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[hsl(0,0%,0%)] to-[hsl(180,100%,50%)] flex items-center justify-center">
-                <Video className="h-6 w-6 text-white" />
+              <div className="w-12 h-12 flex items-center justify-center">
+                <Video className="h-10 w-10 text-[hsl(180,100%,50%)]" />
               </div>
               <div>
-                <CardTitle className="text-2xl">{t('sell.social.tiktok.title')}</CardTitle>
-                <CardDescription>{t('sell.social.tiktok.subtitle')}</CardDescription>
+                <CardTitle className="text-2xl text-white">{t('sell.social.tiktok.title')}</CardTitle>
+                <CardDescription className="text-white/60">{t('sell.social.tiktok.subtitle')}</CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -97,13 +116,14 @@ const TikTok = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Username */}
               <div className="space-y-2">
-                <Label htmlFor="username">{t('sell.social.tiktok.username')}</Label>
+                <Label htmlFor="username" className="text-white">{t('sell.social.tiktok.username')}</Label>
                 <Input
                   id="username"
                   placeholder="@username"
                   value={formData.username}
                   onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                   maxLength={100}
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                   required
                 />
               </div>
@@ -111,7 +131,7 @@ const TikTok = () => {
               {/* Stats Grid */}
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="followers">
+                  <Label htmlFor="followers" className="text-white">
                     <Users className="h-4 w-4 inline mr-1" />
                     {t('sell.social.followers')}
                   </Label>
@@ -121,12 +141,13 @@ const TikTok = () => {
                     placeholder="10000"
                     value={formData.followers}
                     onChange={(e) => setFormData({ ...formData, followers: e.target.value })}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="likes">
+                  <Label htmlFor="likes" className="text-white">
                     <Heart className="h-4 w-4 inline mr-1" />
                     {t('sell.social.likes')}
                   </Label>
@@ -136,11 +157,12 @@ const TikTok = () => {
                     placeholder="50000"
                     value={formData.likes}
                     onChange={(e) => setFormData({ ...formData, likes: e.target.value })}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="views">
+                  <Label htmlFor="views" className="text-white">
                     <Eye className="h-4 w-4 inline mr-1" />
                     {t('sell.social.views')}
                   </Label>
@@ -150,15 +172,16 @@ const TikTok = () => {
                     placeholder="100000"
                     value={formData.views}
                     onChange={(e) => setFormData({ ...formData, views: e.target.value })}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                   />
                 </div>
               </div>
 
               {/* Verification Status */}
               <div className="space-y-2">
-                <Label>{t('sell.social.verification')}</Label>
+                <Label className="text-white">{t('sell.social.verification')}</Label>
                 <div className="flex gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer">
+                  <label className="flex items-center gap-2 cursor-pointer text-white">
                     <input
                       type="radio"
                       name="verification"
@@ -169,7 +192,7 @@ const TikTok = () => {
                     />
                     <span>{t('sell.social.verified')}</span>
                   </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
+                  <label className="flex items-center gap-2 cursor-pointer text-white">
                     <input
                       type="radio"
                       name="verification"
@@ -185,20 +208,21 @@ const TikTok = () => {
 
               {/* Price */}
               <div className="space-y-2">
-                <Label htmlFor="price">{t('sell.price')}</Label>
+                <Label htmlFor="price" className="text-white">{t('sell.price')}</Label>
                 <Input
                   id="price"
                   type="number"
                   placeholder="100"
                   value={formData.price}
                   onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                   required
                 />
               </div>
 
               {/* Description */}
               <div className="space-y-2">
-                <Label htmlFor="description">{t('sell.description')}</Label>
+                <Label htmlFor="description" className="text-white">{t('sell.description')}</Label>
                 <Textarea
                   id="description"
                   placeholder={t('sell.social.tiktok.descriptionPlaceholder')}
@@ -206,9 +230,10 @@ const TikTok = () => {
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows={4}
                   maxLength={1000}
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                   required
                 />
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-white/50">
                   {formData.description.length}/1000
                 </p>
               </div>
