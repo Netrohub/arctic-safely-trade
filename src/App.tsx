@@ -21,6 +21,7 @@ import Social from "./pages/sell/Social";
 import SellWOS from "./pages/sell/SellWOS";
 import TikTok from "./pages/sell/social/TikTok";
 import InstagramSell from "./pages/sell/social/Instagram";
+import SocialProductExample from "./pages/SocialProductExample";
 import MyListings from "./pages/MyListings";
 import Disputes from "./pages/Disputes";
 import DisputeDetails from "./pages/DisputeDetails";
@@ -69,6 +70,7 @@ const AppContent = () => {
         <Route path="/sell/social" element={<Social />} />
         <Route path="/sell/social/tiktok" element={<TikTok />} />
         <Route path="/sell/social/instagram" element={<InstagramSell />} />
+        <Route path="/social-product-example" element={<SocialProductExample />} />
         <Route path="/my-listings" element={<MyListings />} />
         <Route path="/disputes" element={<Disputes />} />
         <Route path="/dispute/:id" element={<DisputeDetails />} />
