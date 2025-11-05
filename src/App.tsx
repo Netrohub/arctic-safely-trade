@@ -33,6 +33,9 @@ import AdminOrders from "./pages/admin/Orders";
 import AdminDisputes from "./pages/admin/Disputes";
 import AdminSettings from "./pages/admin/Settings";
 import AdminNotifications from "./pages/admin/Notifications";
+import AdminReviews from "./pages/admin/Reviews";
+import AdminFinancial from "./pages/admin/Financial";
+import AdminActivity from "./pages/admin/Activity";
 import About from "./pages/About";
 import Help from "./pages/Help";
 import Terms from "./pages/Terms";
@@ -80,6 +83,9 @@ const AppContent = () => {
           <Route path="listings" element={<AdminListings />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="disputes" element={<AdminDisputes />} />
+          <Route path="reviews" element={<AdminReviews />} />
+          <Route path="financial" element={<AdminFinancial />} />
+          <Route path="activity" element={<AdminActivity />} />
           <Route path="notifications" element={<AdminNotifications />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>

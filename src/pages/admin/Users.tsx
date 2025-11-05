@@ -3,7 +3,9 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Search, Ban, CheckCircle, UserX, ShieldCheck } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Search, Ban, CheckCircle, UserX, ShieldCheck, Shield } from "lucide-react";
 import { useState } from "react";
 
 const AdminUsers = () => {
@@ -11,11 +13,19 @@ const AdminUsers = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const users = [
-    { id: 1, name: "محمد أحمد", email: "mohammed@example.com", phone: "+966501234567", status: "active", verified: true, joined: "2025-01-15", orders: 12, totalSpent: 5400, lastActive: "منذ ساعتين" },
-    { id: 2, name: "سارة علي", email: "sara@example.com", phone: "+966509876543", status: "active", verified: true, joined: "2025-01-10", orders: 8, totalSpent: 3200, lastActive: "منذ 5 ساعات" },
-    { id: 3, name: "خالد العتيبي", email: "khaled@example.com", phone: "+966551234567", status: "suspended", verified: false, joined: "2025-01-08", orders: 3, totalSpent: 1050, lastActive: "منذ يومين" },
-    { id: 4, name: "نورة السعيد", email: "noura@example.com", phone: "+966555555555", status: "active", verified: true, joined: "2025-01-05", orders: 15, totalSpent: 7800, lastActive: "منذ 30 دقيقة" },
+    { id: 1, name: "محمد أحمد", email: "mohammed@example.com", phone: "+966501234567", status: "active", verified: true, joined: "2025-01-15", orders: 12, totalSpent: 5400, lastActive: "منذ ساعتين", role: "user", roleLabel: "مستخدم" },
+    { id: 2, name: "سارة علي", email: "sara@example.com", phone: "+966509876543", status: "active", verified: true, joined: "2025-01-10", orders: 8, totalSpent: 3200, lastActive: "منذ 5 ساعات", role: "moderator", roleLabel: "مشرف" },
+    { id: 3, name: "خالد العتيبي", email: "khaled@example.com", phone: "+966551234567", status: "suspended", verified: false, joined: "2025-01-08", orders: 3, totalSpent: 1050, lastActive: "منذ يومين", role: "user", roleLabel: "مستخدم" },
+    { id: 4, name: "نورة السعيد", email: "noura@example.com", phone: "+966555555555", status: "active", verified: true, joined: "2025-01-05", orders: 15, totalSpent: 7800, lastActive: "منذ 30 دقيقة", role: "admin", roleLabel: "مدير" },
   ];
+
+  const getRoleBadgeColor = (role: string) => {
+    switch (role) {
+      case "admin": return "bg-red-500/20 text-red-400 border-red-500/30";
+      case "moderator": return "bg-purple-500/20 text-purple-400 border-purple-500/30";
+      default: return "bg-blue-500/20 text-blue-400 border-blue-500/30";
+    }
+  };
 
   const handleViewDetails = (user: any) => {
     setSelectedUser(user);
@@ -56,6 +66,9 @@ const AdminUsers = () => {
                   {user.verified && (
                     <ShieldCheck className="h-5 w-5 text-[hsl(160,60%,50%)]" />
                   )}
+                  <Badge className={getRoleBadgeColor(user.role)}>
+                    {user.roleLabel}
+                  </Badge>
                   <StatusBadge 
                     status={user.status === "active" ? "success" : "error"}
                     label={user.status === "active" ? "نشط" : "موقوف"}
@@ -73,31 +86,50 @@ const AdminUsers = () => {
               </div>
             </div>
 
-            <div className="flex gap-2 pt-3 border-t border-white/10">
-              <Button 
-                size="sm" 
-                variant="arctic-ghost"
-                className="flex-1 gap-2"
-                onClick={() => handleViewDetails(user)}
-              >
-                <CheckCircle className="h-4 w-4" />
-                عرض التفاصيل
-              </Button>
-              {user.status === "active" ? (
-                <Button size="sm" variant="danger" className="gap-2">
-                  <Ban className="h-4 w-4" />
-                  إيقاف
+            <div className="space-y-2 pt-3 border-t border-white/10">
+              <div className="flex gap-2">
+                <Select defaultValue={user.role}>
+                  <SelectTrigger className="flex-1 bg-[hsl(200,70%,15%)] border-white/10">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="user">مستخدم</SelectItem>
+                    <SelectItem value="moderator">مشرف</SelectItem>
+                    <SelectItem value="admin">مدير</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button size="sm" className="gap-2 bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30">
+                  <Shield className="h-4 w-4" />
+                  تطبيق
                 </Button>
-              ) : (
-                <Button size="sm" className="gap-2 bg-[hsl(160,60%,50%)] hover:bg-[hsl(160,60%,60%)] text-white border-0">
+              </div>
+
+              <div className="flex gap-2">
+                <Button 
+                  size="sm" 
+                  variant="arctic-ghost"
+                  className="flex-1 gap-2"
+                  onClick={() => handleViewDetails(user)}
+                >
                   <CheckCircle className="h-4 w-4" />
-                  تفعيل
+                  عرض التفاصيل
                 </Button>
-              )}
-              <Button size="sm" variant="danger" className="gap-2">
-                <UserX className="h-4 w-4" />
-                حذف
-              </Button>
+                {user.status === "active" ? (
+                  <Button size="sm" variant="danger" className="gap-2">
+                    <Ban className="h-4 w-4" />
+                    إيقاف
+                  </Button>
+                ) : (
+                  <Button size="sm" className="gap-2 bg-[hsl(160,60%,50%)] hover:bg-[hsl(160,60%,60%)] text-white border-0">
+                    <CheckCircle className="h-4 w-4" />
+                    تفعيل
+                  </Button>
+                )}
+                <Button size="sm" variant="danger" className="gap-2">
+                  <UserX className="h-4 w-4" />
+                  حذف
+                </Button>
+              </div>
             </div>
           </Card>
         ))}
