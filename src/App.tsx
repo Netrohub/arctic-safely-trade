@@ -16,7 +16,11 @@ import Members from "./pages/Members";
 import Leaderboard from "./pages/Leaderboard";
 import Auth from "./pages/Auth";
 import Sell from "./pages/Sell";
+import Gaming from "./pages/sell/Gaming";
+import Social from "./pages/sell/Social";
 import SellWOS from "./pages/sell/SellWOS";
+import TikTok from "./pages/sell/social/TikTok";
+import InstagramSell from "./pages/sell/social/Instagram";
 import MyListings from "./pages/MyListings";
 import Disputes from "./pages/Disputes";
 import DisputeDetails from "./pages/DisputeDetails";
@@ -60,7 +64,11 @@ const AppContent = () => {
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/sell" element={<Sell />} />
-        <Route path="/sell/wos" element={<SellWOS />} />
+        <Route path="/sell/gaming" element={<Gaming />} />
+        <Route path="/sell/gaming/wos" element={<SellWOS />} />
+        <Route path="/sell/social" element={<Social />} />
+        <Route path="/sell/social/tiktok" element={<TikTok />} />
+        <Route path="/sell/social/instagram" element={<InstagramSell />} />
         <Route path="/my-listings" element={<MyListings />} />
         <Route path="/disputes" element={<Disputes />} />
         <Route path="/dispute/:id" element={<DisputeDetails />} />
