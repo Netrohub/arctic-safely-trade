@@ -32,7 +32,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
     <nav className="relative z-20 flex items-center justify-between px-6 py-4 md:px-12 border-b border-border backdrop-blur-md bg-nav-background/50">
       <Link to="/" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
         <img 
-          src="/nxoland-dragon-logo.png" 
+          src="/nxoland-dragon-logo-enhanced.png" 
           alt="NXOLand Logo" 
           className="h-12 w-auto"
         />
