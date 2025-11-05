@@ -133,6 +133,16 @@ const translations: Record<Language, Record<string, string>> = {
     'sell.social.instagram.description': 'بيع حسابات إنستغرام',
     'sell.social.instagram.username': 'اسم المستخدم',
     'sell.social.instagram.descriptionPlaceholder': 'صف حسابك، النيش، نوع المحتوى، إلخ...',
+    'sell.social.accountDescription': 'وصف الحساب',
+    'sell.social.descriptionPlaceholder': 'صف حسابك، النيش، نوع المحتوى، إلخ...',
+    'sell.social.accountWithPrimaryEmail': 'الحساب مع البريد الإلكتروني الأساسي',
+    'sell.social.accountLinkedToPhone': 'الحساب مرتبط برقم هاتف',
+    'sell.social.confirmOwnership.title': 'تأكيد الملكية ومعلومات التسليم',
+    'sell.social.confirmOwnership.description': 'لضمان بيئة آمنة لبيع وشراء الحسابات، يجب عليك إكمال الخطوات أدناه لإضافة حسابك.',
+    'sell.social.confirmOwnership.instruction': 'اضغط على زر "ضع الكلمة أدناه في السيرة الذاتية لحسابك" للمتابعة',
+    'sell.social.confirmOwnership.theWord': 'الكلمة',
+    'sell.social.confirmOwnership.copy': 'نسخ',
+    'sell.social.confirmOwnership.confirm': 'تأكيد الملكية',
     
     // Listing
     'listing.success': 'تم إنشاء الإعلان بنجاح!',
@@ -235,6 +245,16 @@ const translations: Record<Language, Record<string, string>> = {
     'sell.social.instagram.description': 'Sell Instagram accounts',
     'sell.social.instagram.username': 'Username',
     'sell.social.instagram.descriptionPlaceholder': 'Describe your account, niche, content type, etc...',
+    'sell.social.accountDescription': 'Account Description',
+    'sell.social.descriptionPlaceholder': 'Describe your account, niche, content type, etc...',
+    'sell.social.accountWithPrimaryEmail': 'Account with primary email',
+    'sell.social.accountLinkedToPhone': 'The account is linked to a phone number',
+    'sell.social.confirmOwnership.title': 'Confirmation of ownership and delivery information',
+    'sell.social.confirmOwnership.description': 'To ensure a secure environment for buying and selling accounts, you must complete the steps below to add your account.',
+    'sell.social.confirmOwnership.instruction': 'Press the Put the word below in your account bio confirmation button to proceed',
+    'sell.social.confirmOwnership.theWord': 'The word',
+    'sell.social.confirmOwnership.copy': 'copies',
+    'sell.social.confirmOwnership.confirm': 'CONFIRMATION OF OWNERSHIP',
     
     // Listing
     'listing.success': 'Listing created successfully!',

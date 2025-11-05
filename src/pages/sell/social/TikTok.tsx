@@ -9,15 +9,16 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Video, Users, Heart, Eye } from "lucide-react";
+import { Video, Copy, X } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 import { z } from "zod";
 
 const tiktokSchema = z.object({
   username: z.string().trim().min(1, "Username is required").max(100),
-  followers: z.string().trim().min(1, "Followers count is required"),
-  price: z.string().trim().min(1, "Price is required"),
   description: z.string().trim().min(10, "Description must be at least 10 characters").max(1000),
-  verificationStatus: z.enum(["verified", "unverified"]),
+  hasPrimaryEmail: z.boolean(),
+  hasPhoneNumber: z.boolean(),
 });
 
 const TikTok = () => {
@@ -28,13 +29,13 @@ const TikTok = () => {
 
   const [formData, setFormData] = useState({
     username: "",
-    followers: "",
-    likes: "",
-    views: "",
-    price: "",
     description: "",
-    verificationStatus: "unverified" as "verified" | "unverified",
+    hasPrimaryEmail: false,
+    hasPhoneNumber: false,
   });
+
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,6 +44,25 @@ const TikTok = () => {
       // Validate form data
       tiktokSchema.parse(formData);
       
+      // Generate verification code
+      const code = Math.floor(1000000 + Math.random() * 9000000).toString();
+      setVerificationCode(code);
+      
+      // Show confirmation dialog
+      setShowConfirmDialog(true);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast({
+          title: "Validation Error",
+          description: error.errors[0].message,
+          variant: "destructive",
+        });
+      }
+    }
+  };
+
+  const handleConfirmOwnership = async () => {
+    try {
       setIsSubmitting(true);
 
       // Simulate API call
@@ -55,22 +75,22 @@ const TikTok = () => {
 
       navigate("/my-listings");
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        toast({
-          title: "Validation Error",
-          description: error.errors[0].message,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: "Failed to create listing. Please try again.",
-          variant: "destructive",
-        });
-      }
+      toast({
+        title: "Error",
+        description: "Failed to create listing. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(verificationCode);
+    toast({
+      title: "Copied!",
+      description: "Verification code copied to clipboard",
+    });
   };
 
   return (
@@ -116,7 +136,9 @@ const TikTok = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Username */}
               <div className="space-y-2">
-                <Label htmlFor="username" className="text-white">{t('sell.social.tiktok.username')}</Label>
+                <Label htmlFor="username" className="text-white">
+                  {t('sell.social.tiktok.username')}
+                </Label>
                 <Input
                   id="username"
                   placeholder="@username"
@@ -128,104 +150,14 @@ const TikTok = () => {
                 />
               </div>
 
-              {/* Stats Grid */}
-              <div className="grid md:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="followers" className="text-white">
-                    <Users className="h-4 w-4 inline mr-1" />
-                    {t('sell.social.followers')}
-                  </Label>
-                  <Input
-                    id="followers"
-                    type="number"
-                    placeholder="10000"
-                    value={formData.followers}
-                    onChange={(e) => setFormData({ ...formData, followers: e.target.value })}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="likes" className="text-white">
-                    <Heart className="h-4 w-4 inline mr-1" />
-                    {t('sell.social.likes')}
-                  </Label>
-                  <Input
-                    id="likes"
-                    type="number"
-                    placeholder="50000"
-                    value={formData.likes}
-                    onChange={(e) => setFormData({ ...formData, likes: e.target.value })}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="views" className="text-white">
-                    <Eye className="h-4 w-4 inline mr-1" />
-                    {t('sell.social.views')}
-                  </Label>
-                  <Input
-                    id="views"
-                    type="number"
-                    placeholder="100000"
-                    value={formData.views}
-                    onChange={(e) => setFormData({ ...formData, views: e.target.value })}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                  />
-                </div>
-              </div>
-
-              {/* Verification Status */}
-              <div className="space-y-2">
-                <Label className="text-white">{t('sell.social.verification')}</Label>
-                <div className="flex gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer text-white">
-                    <input
-                      type="radio"
-                      name="verification"
-                      value="verified"
-                      checked={formData.verificationStatus === "verified"}
-                      onChange={(e) => setFormData({ ...formData, verificationStatus: e.target.value as "verified" })}
-                      className="w-4 h-4"
-                    />
-                    <span>{t('sell.social.verified')}</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer text-white">
-                    <input
-                      type="radio"
-                      name="verification"
-                      value="unverified"
-                      checked={formData.verificationStatus === "unverified"}
-                      onChange={(e) => setFormData({ ...formData, verificationStatus: e.target.value as "unverified" })}
-                      className="w-4 h-4"
-                    />
-                    <span>{t('sell.social.unverified')}</span>
-                  </label>
-                </div>
-              </div>
-
-              {/* Price */}
-              <div className="space-y-2">
-                <Label htmlFor="price" className="text-white">{t('sell.price')}</Label>
-                <Input
-                  id="price"
-                  type="number"
-                  placeholder="100"
-                  value={formData.price}
-                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                  required
-                />
-              </div>
-
               {/* Description */}
               <div className="space-y-2">
-                <Label htmlFor="description" className="text-white">{t('sell.description')}</Label>
+                <Label htmlFor="description" className="text-white">
+                  {t('sell.social.accountDescription')}
+                </Label>
                 <Textarea
                   id="description"
-                  placeholder={t('sell.social.tiktok.descriptionPlaceholder')}
+                  placeholder={t('sell.social.descriptionPlaceholder')}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows={4}
@@ -238,6 +170,43 @@ const TikTok = () => {
                 </p>
               </div>
 
+              {/* Account Details Checkboxes */}
+              <div className="space-y-4">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="primaryEmail"
+                    checked={formData.hasPrimaryEmail}
+                    onCheckedChange={(checked) => 
+                      setFormData({ ...formData, hasPrimaryEmail: checked as boolean })
+                    }
+                    className="border-white/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                  />
+                  <Label
+                    htmlFor="primaryEmail"
+                    className="text-white cursor-pointer"
+                  >
+                    {t('sell.social.accountWithPrimaryEmail')}
+                  </Label>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="phoneNumber"
+                    checked={formData.hasPhoneNumber}
+                    onCheckedChange={(checked) => 
+                      setFormData({ ...formData, hasPhoneNumber: checked as boolean })
+                    }
+                    className="border-white/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                  />
+                  <Label
+                    htmlFor="phoneNumber"
+                    className="text-white cursor-pointer"
+                  >
+                    {t('sell.social.accountLinkedToPhone')}
+                  </Label>
+                </div>
+              </div>
+
               {/* Submit Button */}
               <Button
                 type="submit"
@@ -245,12 +214,62 @@ const TikTok = () => {
                 size="lg"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? t('listing.creating') : t('listing.create')}
+                {t('listing.create')}
               </Button>
             </form>
           </CardContent>
         </Card>
       </div>
+
+      {/* Confirmation Dialog */}
+      <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+        <DialogContent className="bg-[hsl(220,15%,12%)] border-white/10 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl text-center">
+              {t('sell.social.confirmOwnership.title')}
+            </DialogTitle>
+            <DialogDescription className="text-white/60 text-center pt-2">
+              {t('sell.social.confirmOwnership.description')}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6 py-4">
+            <div className="space-y-3">
+              <p className="text-sm text-white/80 text-center">
+                {t('sell.social.confirmOwnership.instruction')}
+              </p>
+              <p className="text-xs text-white/60 text-center">
+                {t('sell.social.confirmOwnership.theWord')}
+              </p>
+              
+              <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg p-3">
+                <span className="flex-1 text-lg font-mono text-center">
+                  {verificationCode}
+                </span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={copyToClipboard}
+                  className="text-primary hover:text-primary/80 hover:bg-white/5"
+                >
+                  <Copy className="h-4 w-4" />
+                  <span className="ml-1 text-sm">{t('sell.social.confirmOwnership.copy')}</span>
+                </Button>
+              </div>
+            </div>
+
+            <Button
+              onClick={handleConfirmOwnership}
+              disabled={isSubmitting}
+              className="w-full bg-primary hover:bg-primary/90"
+              size="lg"
+            >
+              {isSubmitting ? t('listing.creating') : t('sell.social.confirmOwnership.confirm')}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
