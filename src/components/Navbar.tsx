@@ -3,8 +3,10 @@ import { Snowflake, LogIn, ChevronDown } from "lucide-react";
 import { NotificationBell } from "@/components/NotificationBell";
 import { MobileNav } from "@/components/MobileNav";
 import { GlobalSearch } from "@/components/GlobalSearch";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -22,6 +24,7 @@ interface NavbarProps {
 export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
   const location = useLocation();
   const { isAuthenticated } = useAuth();
+  const { t } = useLanguage();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -44,14 +47,14 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                     "inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-nav-highlight/10 hover:text-nav-highlight focus:bg-nav-highlight/10 focus:outline-none disabled:pointer-events-none disabled:opacity-50",
                     isActive("/") ? "bg-nav-highlight/20 text-nav-highlight shadow-glow" : "text-white/90"
                   )}>
-                    الرئيسية
+                    {t('nav.home')}
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent text-white/90 hover:bg-nav-highlight/10 hover:text-nav-highlight data-[state=open]:bg-nav-highlight/20 data-[state=open]:text-nav-highlight transition-all duration-300">
-                  التداول
+                  {t('nav.marketplace')}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[220px] gap-2 p-3 bg-nav-background/95 border border-nav-highlight/20 shadow-arctic backdrop-blur-xl z-50">
@@ -60,9 +63,9 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
                         isActive("/marketplace") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
                       )}>
-                        <div className="text-sm font-semibold leading-none">السوق</div>
+                        <div className="text-sm font-semibold leading-none">{t('nav.marketplace')}</div>
                         <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
-                          تصفح جميع الحسابات المعروضة
+                          {t('home.hero.browseAccounts')}
                         </p>
                       </Link>
                     </li>
@@ -73,9 +76,9 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
                             isActive("/sell") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
                           )}>
-                            <div className="text-sm font-semibold leading-none">بيع حساب</div>
+                            <div className="text-sm font-semibold leading-none">{t('nav.sell')}</div>
                             <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
-                              أضف حسابك للبيع
+                              {t('sell.subtitle')}
                             </p>
                           </Link>
                         </li>
@@ -84,9 +87,9 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
                             isActive("/my-listings") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
                           )}>
-                            <div className="text-sm font-semibold leading-none">إعلاناتي</div>
+                            <div className="text-sm font-semibold leading-none">{t('nav.myListings')}</div>
                             <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
-                              إدارة إعلاناتك
+                              {t('sell.subtitle')}
                             </p>
                           </Link>
                         </li>
@@ -95,9 +98,9 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
                             isActive("/orders") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
                           )}>
-                            <div className="text-sm font-semibold leading-none">طلباتي</div>
+                            <div className="text-sm font-semibold leading-none">{t('nav.orders')}</div>
                             <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
-                              عرض جميع مشترياتك
+                              {t('home.hero.browseAccounts')}
                             </p>
                           </Link>
                         </li>
@@ -109,7 +112,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
 
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent text-white/90 hover:bg-nav-highlight/10 hover:text-nav-highlight data-[state=open]:bg-nav-highlight/20 data-[state=open]:text-nav-highlight transition-all duration-300">
-                  المجتمع
+                  {t('nav.members')}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[220px] gap-2 p-3 bg-nav-background/95 border border-nav-highlight/20 shadow-arctic backdrop-blur-xl z-50">
@@ -118,9 +121,9 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
                         isActive("/leaderboard") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
                       )}>
-                        <div className="text-sm font-semibold leading-none">لوحة المتصدرين</div>
+                        <div className="text-sm font-semibold leading-none">{t('nav.leaderboard')}</div>
                         <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
-                          أفضل البائعين والمشترين
+                          {t('nav.members')}
                         </p>
                       </Link>
                     </li>
@@ -129,9 +132,9 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
                         isActive("/members") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
                       )}>
-                        <div className="text-sm font-semibold leading-none">الأعضاء</div>
+                        <div className="text-sm font-semibold leading-none">{t('nav.members')}</div>
                         <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
-                          تصفح جميع الأعضاء
+                          {t('home.hero.browseAccounts')}
                         </p>
                       </Link>
                     </li>
@@ -140,9 +143,9 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
                         isActive("/suggestions") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
                       )}>
-                        <div className="text-sm font-semibold leading-none">الاقتراحات</div>
+                        <div className="text-sm font-semibold leading-none">{t('nav.help')}</div>
                         <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
-                          شارك أفكارك لتحسين المنصة
+                          {t('home.footer.support')}
                         </p>
                       </Link>
                     </li>
@@ -158,7 +161,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                         "inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-nav-highlight/10 hover:text-nav-highlight focus:bg-nav-highlight/10 focus:outline-none disabled:pointer-events-none disabled:opacity-50",
                         isActive("/wallet") ? "bg-nav-highlight/20 text-nav-highlight shadow-glow" : "text-white/90"
                       )}>
-                        المحفظة
+                        {t('nav.wallet')}
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>
@@ -169,7 +172,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                         "inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-nav-highlight/10 hover:text-nav-highlight focus:bg-nav-highlight/10 focus:outline-none disabled:pointer-events-none disabled:opacity-50",
                         isActive("/profile") ? "bg-nav-highlight/20 text-nav-highlight shadow-glow" : "text-white/90"
                       )}>
-                        الملف الشخصي
+                        {t('nav.profile')}
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>
@@ -179,6 +182,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
           </NavigationMenu>
         )}
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <GlobalSearch />
           {isAuthenticated ? (
             <NotificationBell />
@@ -191,7 +195,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
             >
               <Link to="/auth">
                 <LogIn className="h-4 w-4 mr-2" />
-                تسجيل الدخول
+                {t('nav.login')}
               </Link>
             </Button>
           )}

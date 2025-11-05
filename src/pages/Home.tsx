@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { BottomNav } from "@/components/BottomNav";
 import { useAuth } from "@/hooks/use-auth";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Home = () => {
   const { isAuthenticated } = useAuth();
+  const { t, language } = useLanguage();
   return (
-    <div className="min-h-screen relative overflow-hidden" dir="rtl">
+    <div className="min-h-screen relative overflow-hidden" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Icy background with gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-[hsl(200,70%,15%)] via-[hsl(195,60%,25%)] to-[hsl(200,70%,15%)]" />
       
@@ -41,19 +43,17 @@ const Home = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-[hsl(195,80%,70%,0.3)]">
             <Snowflake className="h-4 w-4 text-[hsl(195,80%,70%)] animate-pulse" />
             <span className="text-sm font-medium text-[hsl(195,80%,70%)]">
-              منصة موثوقة 100% لتداول الحسابات
+              {t('home.features.security')} {t('home.features.fast')} {t('home.features.support')}
             </span>
           </div>
           
           {/* Main Heading */}
           <div className="space-y-6 max-w-4xl">
             <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-tight text-white drop-shadow-[0_0_30px_rgba(148,209,240,0.5)]">
-              اشتر وبِع{" "}
-              <span className="text-[hsl(195,80%,70%)]">بأمان</span>{" "}
-              تام
+              {t('home.hero.title')}
             </h1>
             <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed">
-              أول منصة عربية متخصصة في تداول حسابات Whiteout Survival بنظام ضمان متكامل وحماية شاملة
+              {t('home.hero.subtitle')}
             </p>
           </div>
           
@@ -66,8 +66,7 @@ const Home = () => {
             >
               <Link to="/marketplace">
                 <Shield className="h-5 w-5 flex-shrink-0" />
-                <span className="hidden sm:inline">تصفح الحسابات</span>
-                <span className="sm:hidden">السوق</span>
+                <span>{t('home.hero.browseAccounts')}</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -76,8 +75,7 @@ const Home = () => {
               className="gap-2 text-sm md:text-base px-6 md:px-8 py-4 md:py-6 bg-white/5 hover:bg-white/10 text-white font-bold backdrop-blur-sm border border-white/20 min-h-[56px]"
               onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              <span className="hidden sm:inline">كيف تعمل المنصة</span>
-              <span className="sm:hidden">كيف يعمل؟</span>
+              <span>{t('home.hero.learnMore')}</span>
             </Button>
           </div>
           
@@ -87,19 +85,19 @@ const Home = () => {
               <div className="p-2 rounded-lg bg-[hsl(195,80%,50%,0.15)] border border-[hsl(195,80%,70%,0.3)]">
                 <Shield className="h-4 w-4 text-[hsl(195,80%,70%)]" />
               </div>
-              <span>حماية المعاملات</span>
+              <span>{t('home.feature1.title')}</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-white/70">
               <div className="p-2 rounded-lg bg-[hsl(40,90%,55%,0.15)] border border-[hsl(40,90%,55%,0.3)]">
                 <Flame className="h-4 w-4 text-[hsl(40,90%,55%)]" />
               </div>
-              <span>تسليم فوري</span>
+              <span>{t('home.feature4.title')}</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-white/70">
               <div className="p-2 rounded-lg bg-[hsl(195,80%,50%,0.15)] border border-[hsl(195,80%,70%,0.3)]">
                 <Snowflake className="h-4 w-4 text-[hsl(195,80%,70%)]" />
               </div>
-              <span>دعم على مدار الساعة</span>
+              <span>{t('home.feature2.title')}</span>
             </div>
           </div>
         </div>
@@ -108,15 +106,15 @@ const Home = () => {
       {/* Features Grid */}
       <section id="features" className="relative z-10 container mx-auto px-4 md:px-6 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">لماذا منصتنا؟</h2>
-          <p className="text-xl text-white/60">حماية كاملة لحقوق المشتري والبائع</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{t('home.whyChoose')}</h2>
+          <p className="text-xl text-white/60">{t('home.feature1.desc')}</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { title: "نظام ضمان آمن", icon: Shield, desc: "الأموال محفوظة في حساب ضمان حتى تأكيد استلام الحساب" },
-            { title: "تحويل فوري", icon: Snowflake, desc: "دفع سريع وآمن عبر تاب - استلم معلومات الحساب فوراً" },
-            { title: "دعم متواصل", icon: Flame, desc: "فريق دعم عربي متوفر للمساعدة في حل أي مشكلة بسرعة" },
+            { title: t('home.feature1.title'), icon: Shield, desc: t('home.feature1.desc') },
+            { title: t('home.feature4.title'), icon: Snowflake, desc: t('home.feature4.desc') },
+            { title: t('home.feature2.title'), icon: Flame, desc: t('home.feature2.desc') },
           ].map((feature, i) => (
             <div 
               key={i}
@@ -133,15 +131,15 @@ const Home = () => {
       {/* How It Works Section */}
       <section className="relative z-10 container mx-auto px-4 md:px-6 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">كيف تعمل المنصة</h2>
-          <p className="text-xl text-white/60">ثلاث خطوات بسيطة للشراء بأمان</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{t('home.howItWorks')}</h2>
+          <p className="text-xl text-white/60">{t('home.step1.desc')}</p>
         </div>
         
         <div className="max-w-4xl mx-auto space-y-8">
           {[
-            { step: "1", title: "اختر واشترِ", desc: "تصفح الحسابات المتاحة واختر الحساب المناسب" },
-            { step: "2", title: "فترة الضمان", desc: "استلم معلومات الحساب وتحقق منه خلال 12 ساعة" },
-            { step: "3", title: "تأكيد أو نزاع", desc: "إذا كان الحساب يعمل، أكّد الاستلام" },
+            { step: "1", title: t('home.step1.title'), desc: t('home.step1.desc') },
+            { step: "2", title: t('home.step2.title'), desc: t('home.step2.desc') },
+            { step: "3", title: t('home.step3.title'), desc: t('home.step3.desc') },
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-6 p-6 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[hsl(195,80%,70%,0.3)] transition-all">
               <div className="flex-shrink-0 w-16 h-16 rounded-full bg-[hsl(195,80%,50%)] flex items-center justify-center text-2xl font-black text-white shadow-[0_0_20px_rgba(56,189,248,0.4)]">
@@ -160,15 +158,15 @@ const Home = () => {
       {!isAuthenticated && (
         <section className="relative z-10 container mx-auto px-4 md:px-6 py-20 text-center">
           <div className="max-w-3xl mx-auto space-y-6">
-            <h2 className="text-4xl md:text-5xl font-bold text-white">ابدأ التداول الآن</h2>
-            <p className="text-xl text-white/70">انضم لآلاف المستخدمين الذين يثقون بمنصتنا لتداول الحسابات بأمان</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-white">{t('home.cta.title')}</h2>
+            <p className="text-xl text-white/70">{t('home.cta.subtitle')}</p>
             <Button 
               asChild
               size="lg" 
               className="gap-2 text-lg px-12 py-6 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white font-bold shadow-[0_0_30px_rgba(56,189,248,0.4)] border-0"
             >
               <Link to="/auth">
-                إنشاء حساب مجاني
+                {t('home.cta.getStarted')}
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
@@ -181,20 +179,20 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-white/50 text-sm md:text-base">
-              © 2025 NXOLand. جميع الحقوق محفوظة.
+              © 2025 NXOLand. {t('home.footer.rights')}
             </p>
             <div className="flex items-center gap-6 text-sm">
               <Link to="/suggestions" className="text-white/60 hover:text-[hsl(195,80%,70%)] transition-colors">
-                قيّم المنصة
+                {t('home.footer.support')}
               </Link>
               <Link to="/terms" className="text-white/60 hover:text-[hsl(195,80%,70%)] transition-colors">
-                الشروط والأحكام
+                {t('home.footer.terms')}
               </Link>
               <Link to="/privacy" className="text-white/60 hover:text-[hsl(195,80%,70%)] transition-colors">
-                سياسة الخصوصية
+                {t('home.footer.privacy')}
               </Link>
               <Link to="/help" className="text-white/60 hover:text-[hsl(195,80%,70%)] transition-colors">
-                الدعم
+                {t('home.footer.support')}
               </Link>
             </div>
           </div>

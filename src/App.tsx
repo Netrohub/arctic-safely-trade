@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NotificationBanner } from "@/components/NotificationBanner";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import Home from "./pages/Home";
 import Marketplace from "./pages/Marketplace";
 import ProductDetails from "./pages/ProductDetails";
@@ -92,13 +93,15 @@ const AppContent = () => {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </TooltipProvider>
+    <LanguageProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </TooltipProvider>
+    </LanguageProvider>
   </QueryClientProvider>
 );
 
