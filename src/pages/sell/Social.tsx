@@ -68,9 +68,11 @@ const Social = () => {
                 <Card className="group relative overflow-hidden bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] cursor-pointer">
                   {/* Content */}
                   <div className="relative p-8 flex flex-col items-center text-center space-y-4">
-                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${platform.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform p-3`}>
-                      <img src={platform.logo} alt={platform.name} className="w-full h-full object-contain" />
-                    </div>
+                    <img 
+                      src={platform.logo} 
+                      alt={platform.name} 
+                      className="w-24 h-24 object-contain group-hover:scale-110 transition-transform" 
+                    />
                     
                     <div>
                       <h3 className="text-2xl font-bold text-white mb-2">{platform.name}</h3>
