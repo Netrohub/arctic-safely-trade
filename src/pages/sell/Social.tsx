@@ -1,9 +1,10 @@
 import { Card } from "@/components/ui/card";
-import { Instagram, Video } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import tiktokLogo from "@/assets/tiktok-logo.png";
+import instagramLogo from "@/assets/instagram-logo.png";
 
 const Social = () => {
   const { t, language } = useLanguage();
@@ -12,7 +13,7 @@ const Social = () => {
     {
       id: "tiktok",
       name: "TikTok",
-      icon: Video,
+      logo: tiktokLogo,
       description: t('sell.social.tiktok.description'),
       path: "/sell/social/tiktok",
       gradient: "from-[hsl(0,0%,0%)] to-[hsl(180,100%,50%)]",
@@ -20,7 +21,7 @@ const Social = () => {
     {
       id: "instagram",
       name: "Instagram",
-      icon: Instagram,
+      logo: instagramLogo,
       description: t('sell.social.instagram.description'),
       path: "/sell/social/instagram",
       gradient: "from-[hsl(320,70%,50%)] via-[hsl(340,90%,55%)] to-[hsl(45,100%,55%)]",
@@ -62,14 +63,13 @@ const Social = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {platforms.map((platform) => {
-            const Icon = platform.icon;
             return (
               <Link key={platform.id} to={platform.path}>
                 <Card className="group relative overflow-hidden bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] cursor-pointer">
                   {/* Content */}
                   <div className="relative p-8 flex flex-col items-center text-center space-y-4">
-                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${platform.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
-                      <Icon className="h-10 w-10 text-white" />
+                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${platform.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform p-3`}>
+                      <img src={platform.logo} alt={platform.name} className="w-full h-full object-contain" />
                     </div>
                     
                     <div>
