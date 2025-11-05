@@ -22,7 +22,7 @@ export const BottomNav = () => {
     : [...navItems.filter(item => !item.protected), { path: "/auth", label: "دخول", icon: LogIn, protected: false }];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[hsl(200,70%,15%)] border-t border-white/10 backdrop-blur-md pb-safe">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-nav-background border-t border-border backdrop-blur-md pb-safe">
       <div className="flex items-center justify-around px-2 py-2">
         {visibleItems.map((item) => {
           const Icon = item.icon;
@@ -35,8 +35,8 @@ export const BottomNav = () => {
               className={cn(
                 "flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-lg transition-all min-w-[60px] min-h-[56px]",
                 active
-                  ? "bg-[hsl(195,80%,50%)] text-white"
-                  : "text-white/60 hover:text-white hover:bg-white/5"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
               <Icon className={cn("h-5 w-5", active && "animate-pulse")} />

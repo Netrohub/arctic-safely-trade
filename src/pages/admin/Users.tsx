@@ -21,9 +21,9 @@ const AdminUsers = () => {
 
   const getRoleBadgeColor = (role: string) => {
     switch (role) {
-      case "admin": return "bg-red-500/20 text-red-400 border-red-500/30";
-      case "moderator": return "bg-purple-500/20 text-purple-400 border-purple-500/30";
-      default: return "bg-blue-500/20 text-blue-400 border-blue-500/30";
+      case "admin": return "bg-destructive/20 text-destructive border-destructive/30";
+      case "moderator": return "bg-accent/20 text-accent border-accent/30";
+      default: return "bg-primary/20 text-primary border-primary/30";
     }
   };
 
@@ -35,36 +35,36 @@ const AdminUsers = () => {
   return (
     <div className="container mx-auto px-4 md:px-6 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-black text-white mb-2">إدارة المستخدمين</h1>
-        <p className="text-white/60">عرض وإدارة جميع مستخدمي المنصة</p>
+        <h1 className="text-3xl font-black text-foreground mb-2">إدارة المستخدمين</h1>
+        <p className="text-muted-foreground">عرض وإدارة جميع مستخدمي المنصة</p>
       </div>
 
       {/* Search */}
-      <Card className="p-4 bg-[hsl(200,70%,18%)] border-white/20 backdrop-blur-sm mb-6">
+      <Card className="p-4 bg-card border-border backdrop-blur-sm mb-6">
         <div className="flex gap-3">
           <div className="relative flex-1">
-            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white/40" />
+            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input 
               placeholder="البحث عن مستخدم..."
-              className="pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/40"
+              className="pr-10 bg-muted/50 border-border text-foreground placeholder:text-muted-foreground"
             />
           </div>
-          <Button className="gap-2 bg-[hsl(195,80%,50%)] hover:bg-[hsl(195,80%,60%)] text-white border-0 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
+          <Button className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground border-0 shadow-[0_0_20px_hsl(var(--primary)/0.3)]">
             بحث
           </Button>
         </div>
       </Card>
 
       {/* Users List */}
-      <div className="space-y-4">
+      <div className="space-y-4 overflow-x-auto">
         {users.map((user) => (
-          <Card key={user.id} className="p-5 bg-[hsl(200,70%,18%)] border-white/20 backdrop-blur-sm">
+          <Card key={user.id} className="p-5 bg-card border-border backdrop-blur-sm min-w-[600px]">
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h3 className="text-lg font-bold text-white">{user.name}</h3>
+                  <h3 className="text-lg font-bold text-foreground">{user.name}</h3>
                   {user.verified && (
-                    <ShieldCheck className="h-5 w-5 text-[hsl(160,60%,50%)]" />
+                    <ShieldCheck className="h-5 w-5 text-success" />
                   )}
                   <Badge className={getRoleBadgeColor(user.role)}>
                     {user.roleLabel}
@@ -75,7 +75,7 @@ const AdminUsers = () => {
                     showIcon={false}
                   />
                 </div>
-                <div className="text-sm text-white/60 space-y-1">
+                <div className="text-sm text-muted-foreground space-y-1">
                   <div>البريد: {user.email}</div>
                   <div className="flex gap-4">
                     <span>تاريخ التسجيل: {user.joined}</span>
@@ -86,10 +86,10 @@ const AdminUsers = () => {
               </div>
             </div>
 
-            <div className="space-y-2 pt-3 border-t border-white/10">
+            <div className="space-y-2 pt-3 border-t border-border">
               <div className="flex gap-2">
                 <Select defaultValue={user.role}>
-                  <SelectTrigger className="flex-1 bg-[hsl(200,70%,15%)] border-white/10">
+                  <SelectTrigger className="flex-1 bg-muted border-border">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -98,34 +98,34 @@ const AdminUsers = () => {
                     <SelectItem value="admin">مدير</SelectItem>
                   </SelectContent>
                 </Select>
-                <Button size="sm" className="gap-2 bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30">
+                <Button size="sm" className="gap-2 min-w-[44px] min-h-[44px] bg-success/20 text-success border-success/30 hover:bg-success/30">
                   <Shield className="h-4 w-4" />
                   تطبيق
                 </Button>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 <Button 
                   size="sm" 
                   variant="arctic-ghost"
-                  className="flex-1 gap-2"
+                  className="flex-1 gap-2 min-w-[44px] min-h-[44px]"
                   onClick={() => handleViewDetails(user)}
                 >
                   <CheckCircle className="h-4 w-4" />
                   عرض التفاصيل
                 </Button>
                 {user.status === "active" ? (
-                  <Button size="sm" variant="danger" className="gap-2">
+                  <Button size="sm" variant="danger" className="gap-2 min-w-[44px] min-h-[44px]">
                     <Ban className="h-4 w-4" />
                     إيقاف
                   </Button>
                 ) : (
-                  <Button size="sm" className="gap-2 bg-[hsl(160,60%,50%)] hover:bg-[hsl(160,60%,60%)] text-white border-0">
+                  <Button size="sm" className="gap-2 min-w-[44px] min-h-[44px] bg-success hover:bg-success/90 text-success-foreground border-0">
                     <CheckCircle className="h-4 w-4" />
                     تفعيل
                   </Button>
                 )}
-                <Button size="sm" variant="danger" className="gap-2">
+                <Button size="sm" variant="danger" className="gap-2 min-w-[44px] min-h-[44px]">
                   <UserX className="h-4 w-4" />
                   حذف
                 </Button>
@@ -137,13 +137,13 @@ const AdminUsers = () => {
 
       {/* User Details Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="bg-[hsl(200,70%,15%)] border-white/10 text-white max-w-2xl">
+        <DialogContent className="bg-card border-border text-foreground max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-white flex items-center gap-3">
+            <DialogTitle className="text-2xl font-bold text-foreground flex items-center gap-3">
               {selectedUser?.name}
-              {selectedUser?.verified && <ShieldCheck className="h-6 w-6 text-green-400" />}
+              {selectedUser?.verified && <ShieldCheck className="h-6 w-6 text-success" />}
             </DialogTitle>
-            <DialogDescription className="text-white/60">
+            <DialogDescription className="text-muted-foreground">
               معلومات تفصيلية عن المستخدم
             </DialogDescription>
           </DialogHeader>
@@ -165,39 +165,39 @@ const AdminUsers = () => {
               </div>
 
               {/* Contact Information */}
-              <Card className="p-4 bg-white/10 border-white/20">
-                <h3 className="text-lg font-bold text-white mb-3">معلومات الاتصال</h3>
+              <Card className="p-4 bg-muted/50 border-border">
+                <h3 className="text-lg font-bold text-foreground mb-3">معلومات الاتصال</h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-white/60">البريد الإلكتروني:</span>
-                    <span className="text-white">{selectedUser.email}</span>
+                    <span className="text-muted-foreground">البريد الإلكتروني:</span>
+                    <span className="text-foreground">{selectedUser.email}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-white/60">رقم الجوال:</span>
-                    <span className="text-white">{selectedUser.phone}</span>
+                    <span className="text-muted-foreground">رقم الجوال:</span>
+                    <span className="text-foreground">{selectedUser.phone}</span>
                   </div>
                 </div>
               </Card>
 
               {/* Activity Statistics */}
-              <Card className="p-4 bg-white/10 border-white/20">
-                <h3 className="text-lg font-bold text-white mb-3">إحصائيات النشاط</h3>
+              <Card className="p-4 bg-muted/50 border-border">
+                <h3 className="text-lg font-bold text-foreground mb-3">إحصائيات النشاط</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <div className="text-2xl font-bold text-white">{selectedUser.orders}</div>
-                    <div className="text-sm text-white/60">إجمالي الطلبات</div>
+                    <div className="text-2xl font-bold text-foreground">{selectedUser.orders}</div>
+                    <div className="text-sm text-muted-foreground">إجمالي الطلبات</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-white">{selectedUser.totalSpent} ريال</div>
-                    <div className="text-sm text-white/60">إجمالي المشتريات</div>
+                    <div className="text-2xl font-bold text-foreground">{selectedUser.totalSpent} ريال</div>
+                    <div className="text-sm text-muted-foreground">إجمالي المشتريات</div>
                   </div>
                   <div>
-                    <div className="text-sm text-[hsl(195,80%,80%)]">{selectedUser.joined}</div>
-                    <div className="text-sm text-white/60">تاريخ التسجيل</div>
+                    <div className="text-sm text-nav-highlight">{selectedUser.joined}</div>
+                    <div className="text-sm text-muted-foreground">تاريخ التسجيل</div>
                   </div>
                   <div>
-                    <div className="text-sm text-[hsl(195,80%,80%)]">{selectedUser.lastActive}</div>
-                    <div className="text-sm text-white/60">آخر نشاط</div>
+                    <div className="text-sm text-nav-highlight">{selectedUser.lastActive}</div>
+                    <div className="text-sm text-muted-foreground">آخر نشاط</div>
                   </div>
                 </div>
               </Card>
@@ -205,17 +205,17 @@ const AdminUsers = () => {
               {/* Actions */}
               <div className="flex gap-2 pt-2">
                 {selectedUser.status === "active" ? (
-                  <Button variant="danger" className="flex-1 gap-2">
+                  <Button variant="danger" className="flex-1 gap-2 min-w-[44px] min-h-[44px]">
                     <Ban className="h-4 w-4" />
                     إيقاف المستخدم
                   </Button>
                 ) : (
-                  <Button className="flex-1 gap-2 bg-[hsl(160,60%,50%)] hover:bg-[hsl(160,60%,60%)] text-white border-0">
+                  <Button className="flex-1 gap-2 min-w-[44px] min-h-[44px] bg-success hover:bg-success/90 text-success-foreground border-0">
                     <CheckCircle className="h-4 w-4" />
                     تفعيل المستخدم
                   </Button>
                 )}
-                <Button variant="danger" className="flex-1 gap-2">
+                <Button variant="danger" className="flex-1 gap-2 min-w-[44px] min-h-[44px]">
                   <UserX className="h-4 w-4" />
                   حذف المستخدم
                 </Button>

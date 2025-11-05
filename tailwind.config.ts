@@ -69,6 +69,18 @@ export default {
           highlight: "hsl(var(--nav-highlight))",
           accent: "hsl(var(--nav-accent))",
         },
+        status: {
+          success: "hsl(var(--status-success))",
+          "success-foreground": "hsl(var(--status-success-foreground))",
+          warning: "hsl(var(--status-warning))",
+          "warning-foreground": "hsl(var(--status-warning-foreground))",
+          error: "hsl(var(--status-error))",
+          "error-foreground": "hsl(var(--status-error-foreground))",
+          info: "hsl(var(--status-info))",
+          "info-foreground": "hsl(var(--status-info-foreground))",
+          pending: "hsl(var(--status-pending))",
+          "pending-foreground": "hsl(var(--status-pending-foreground))",
+        },
       },
       backgroundImage: {
         'gradient-arctic': 'var(--gradient-arctic)',

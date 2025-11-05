@@ -23,18 +23,18 @@ export const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
             {item.href && !isLast ? (
               <Link
                 to={item.href}
-                className="text-white/60 hover:text-[hsl(195,80%,70%)] transition-colors"
+                className="text-muted-foreground hover:text-nav-highlight transition-colors"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className={isLast ? "text-white font-medium" : "text-white/60"}>
+              <span className={isLast ? "text-foreground font-medium" : "text-muted-foreground"}>
                 {item.label}
               </span>
             )}
             
             {!isLast && (
-              <ChevronLeft className="h-4 w-4 text-white/40 rotate-180" />
+              <ChevronLeft className="h-4 w-4 text-muted-foreground/60 rotate-180" />
             )}
           </div>
         );

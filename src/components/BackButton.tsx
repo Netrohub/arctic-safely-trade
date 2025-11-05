@@ -29,7 +29,7 @@ export const BackButton = ({
       onClick={handleBack}
       variant="ghost"
       className={cn(
-        "gap-2 text-[hsl(195,80%,70%)] hover:text-[hsl(195,80%,80%)] hover:bg-white/10 mb-4",
+        "gap-2 text-nav-highlight hover:text-nav-highlight/90 hover:bg-foreground/10 mb-4",
         className
       )}
     >

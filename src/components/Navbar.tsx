@@ -29,10 +29,10 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="relative z-20 flex items-center justify-between px-6 py-4 md:px-12 border-b border-white/10 backdrop-blur-md bg-nav-background/50">
+    <nav className="relative z-20 flex items-center justify-between px-6 py-4 md:px-12 border-b border-border backdrop-blur-md bg-nav-background/50">
       <Link to="/" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
         <Snowflake className="h-8 w-8 text-nav-highlight animate-pulse" />
-        <span className="text-xl md:text-2xl font-black text-white">
+        <span className="text-xl md:text-2xl font-black text-foreground">
           NXO<span className="text-nav-accent">Land</span>
         </span>
       </Link>
@@ -45,7 +45,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                 <Link to="/">
                   <NavigationMenuLink className={cn(
                     "inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-nav-highlight/10 hover:text-nav-highlight focus:bg-nav-highlight/10 focus:outline-none disabled:pointer-events-none disabled:opacity-50",
-                    isActive("/") ? "bg-nav-highlight/20 text-nav-highlight shadow-glow" : "text-white/90"
+                    isActive("/") ? "bg-nav-highlight/20 text-nav-highlight shadow-glow" : "text-muted-foreground"
                   )}>
                     {t('nav.home')}
                   </NavigationMenuLink>
@@ -53,7 +53,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-white/90 hover:bg-nav-highlight/10 hover:text-nav-highlight data-[state=open]:bg-nav-highlight/20 data-[state=open]:text-nav-highlight transition-all duration-300">
+                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-nav-highlight/10 hover:text-nav-highlight data-[state=open]:bg-nav-highlight/20 data-[state=open]:text-nav-highlight transition-all duration-300">
                   {t('nav.marketplace')}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -61,10 +61,10 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                     <li>
                       <Link to="/marketplace" className={cn(
                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
-                        isActive("/marketplace") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
+                        isActive("/marketplace") ? "bg-nav-highlight/20 text-nav-highlight" : "text-muted-foreground"
                       )}>
                         <div className="text-sm font-semibold leading-none">{t('nav.marketplace')}</div>
-                        <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
+                        <p className="line-clamp-2 text-xs leading-snug text-muted-foreground/70 mt-1">
                           {t('home.hero.browseAccounts')}
                         </p>
                       </Link>
@@ -74,10 +74,10 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                         <li>
                           <Link to="/sell" className={cn(
                             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
-                            isActive("/sell") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
+                            isActive("/sell") ? "bg-nav-highlight/20 text-nav-highlight" : "text-muted-foreground"
                           )}>
                             <div className="text-sm font-semibold leading-none">{t('nav.sell')}</div>
-                            <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
+                            <p className="line-clamp-2 text-xs leading-snug text-muted-foreground/70 mt-1">
                               {t('sell.subtitle')}
                             </p>
                           </Link>
@@ -85,10 +85,10 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                         <li>
                           <Link to="/my-listings" className={cn(
                             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
-                            isActive("/my-listings") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
+                            isActive("/my-listings") ? "bg-nav-highlight/20 text-nav-highlight" : "text-muted-foreground"
                           )}>
                             <div className="text-sm font-semibold leading-none">{t('nav.myListings')}</div>
-                            <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
+                            <p className="line-clamp-2 text-xs leading-snug text-muted-foreground/70 mt-1">
                               {t('sell.subtitle')}
                             </p>
                           </Link>
@@ -96,10 +96,10 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                         <li>
                           <Link to="/orders" className={cn(
                             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
-                            isActive("/orders") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
+                            isActive("/orders") ? "bg-nav-highlight/20 text-nav-highlight" : "text-muted-foreground"
                           )}>
                             <div className="text-sm font-semibold leading-none">{t('nav.orders')}</div>
-                            <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
+                            <p className="line-clamp-2 text-xs leading-snug text-muted-foreground/70 mt-1">
                               {t('home.hero.browseAccounts')}
                             </p>
                           </Link>
@@ -111,7 +111,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-white/90 hover:bg-nav-highlight/10 hover:text-nav-highlight data-[state=open]:bg-nav-highlight/20 data-[state=open]:text-nav-highlight transition-all duration-300">
+                <NavigationMenuTrigger className="bg-transparent text-muted-foreground hover:bg-nav-highlight/10 hover:text-nav-highlight data-[state=open]:bg-nav-highlight/20 data-[state=open]:text-nav-highlight transition-all duration-300">
                   {t('nav.members')}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -119,10 +119,10 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                     <li>
                       <Link to="/leaderboard" className={cn(
                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
-                        isActive("/leaderboard") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
+                        isActive("/leaderboard") ? "bg-nav-highlight/20 text-nav-highlight" : "text-muted-foreground"
                       )}>
                         <div className="text-sm font-semibold leading-none">{t('nav.leaderboard')}</div>
-                        <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
+                        <p className="line-clamp-2 text-xs leading-snug text-muted-foreground/70 mt-1">
                           {t('nav.members')}
                         </p>
                       </Link>
@@ -130,10 +130,10 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                     <li>
                       <Link to="/members" className={cn(
                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
-                        isActive("/members") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
+                        isActive("/members") ? "bg-nav-highlight/20 text-nav-highlight" : "text-muted-foreground"
                       )}>
                         <div className="text-sm font-semibold leading-none">{t('nav.members')}</div>
-                        <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
+                        <p className="line-clamp-2 text-xs leading-snug text-muted-foreground/70 mt-1">
                           {t('home.hero.browseAccounts')}
                         </p>
                       </Link>
@@ -141,10 +141,10 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                     <li>
                       <Link to="/suggestions" className={cn(
                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-nav-highlight/15 hover:text-nav-highlight hover:shadow-glow",
-                        isActive("/suggestions") ? "bg-nav-highlight/20 text-nav-highlight" : "text-white/90"
+                        isActive("/suggestions") ? "bg-nav-highlight/20 text-nav-highlight" : "text-muted-foreground"
                       )}>
                         <div className="text-sm font-semibold leading-none">{t('nav.help')}</div>
-                        <p className="line-clamp-2 text-xs leading-snug text-white/50 mt-1">
+                        <p className="line-clamp-2 text-xs leading-snug text-muted-foreground/70 mt-1">
                           {t('home.footer.support')}
                         </p>
                       </Link>
@@ -159,7 +159,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                     <Link to="/wallet">
                       <NavigationMenuLink className={cn(
                         "inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-nav-highlight/10 hover:text-nav-highlight focus:bg-nav-highlight/10 focus:outline-none disabled:pointer-events-none disabled:opacity-50",
-                        isActive("/wallet") ? "bg-nav-highlight/20 text-nav-highlight shadow-glow" : "text-white/90"
+                        isActive("/wallet") ? "bg-nav-highlight/20 text-nav-highlight shadow-glow" : "text-muted-foreground"
                       )}>
                         {t('nav.wallet')}
                       </NavigationMenuLink>
@@ -170,7 +170,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
                     <Link to="/profile">
                       <NavigationMenuLink className={cn(
                         "inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-nav-highlight/10 hover:text-nav-highlight focus:bg-nav-highlight/10 focus:outline-none disabled:pointer-events-none disabled:opacity-50",
-                        isActive("/profile") ? "bg-nav-highlight/20 text-nav-highlight shadow-glow" : "text-white/90"
+                        isActive("/profile") ? "bg-nav-highlight/20 text-nav-highlight shadow-glow" : "text-muted-foreground"
                       )}>
                         {t('nav.profile')}
                       </NavigationMenuLink>
@@ -191,7 +191,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
               asChild 
               variant="outline" 
               size="sm"
-              className="hidden md:flex border-nav-highlight/50 text-nav-highlight hover:bg-nav-highlight hover:text-white hover:border-nav-highlight hover:shadow-glow transition-all duration-300"
+              className="hidden md:flex border-nav-highlight/50 text-nav-highlight hover:bg-nav-highlight hover:text-primary-foreground hover:border-nav-highlight hover:shadow-glow transition-all duration-300"
             >
               <Link to="/auth">
                 <LogIn className="h-4 w-4 mr-2" />

@@ -31,22 +31,22 @@ export const MobileNav = () => {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden text-white hover:bg-white/10"
+          className="md:hidden text-foreground hover:bg-muted min-h-[44px] min-w-[44px]"
         >
           <Menu className="h-6 w-6" />
         </Button>
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="w-[280px] bg-[hsl(200,70%,15%)] border-white/10 backdrop-blur-md"
+        className="w-[280px] bg-card border-border backdrop-blur-md"
       >
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-xl font-bold text-white">القائمة</h2>
+          <h2 className="text-xl font-bold text-foreground">القائمة</h2>
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setOpen(false)}
-            className="text-white hover:bg-white/10"
+            className="text-foreground hover:bg-muted min-h-[44px] min-w-[44px]"
           >
             <X className="h-5 w-5" />
           </Button>
@@ -57,7 +57,7 @@ export const MobileNav = () => {
             <Link
               to="/auth"
               onClick={() => setOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg bg-[hsl(195,80%,50%)] text-white hover:bg-[hsl(195,80%,60%)] transition-colors font-bold mb-2"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-bold mb-2 min-h-[44px]"
             >
               <LogIn className="h-5 w-5" />
               <span>تسجيل الدخول</span>
@@ -72,10 +72,10 @@ export const MobileNav = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all min-h-[44px] ${
                     isActive(item.path)
-                      ? "bg-[hsl(195,80%,50%)] text-white font-bold"
-                      : "text-white/80 hover:bg-white/10 hover:text-white"
+                      ? "bg-primary text-primary-foreground font-bold"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   }`}
                 >
                   <Icon className="h-5 w-5" />
@@ -85,20 +85,20 @@ export const MobileNav = () => {
             })}
         </nav>
 
-        <Separator className="my-6 bg-white/10" />
+        <Separator className="my-6 bg-border" />
 
         <div className="space-y-2">
           <Link
             to="/terms"
             onClick={() => setOpen(false)}
-            className="block px-4 py-2 text-sm text-white/60 hover:text-white transition-colors"
+            className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors min-h-[44px] flex items-center"
           >
             الشروط والأحكام
           </Link>
           <Link
             to="/privacy"
             onClick={() => setOpen(false)}
-            className="block px-4 py-2 text-sm text-white/60 hover:text-white transition-colors"
+            className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors min-h-[44px] flex items-center"
           >
             سياسة الخصوصية
           </Link>

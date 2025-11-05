@@ -13,23 +13,23 @@ interface StatusBadgeProps {
 
 const statusConfig = {
   success: {
-    className: "bg-[hsl(160,60%,50%,0.2)] text-[hsl(160,60%,50%)] border-[hsl(160,60%,50%,0.3)]",
+    className: "bg-status-success/20 text-status-success border-status-success/30",
     icon: CheckCircle2,
   },
   warning: {
-    className: "bg-[hsl(40,90%,55%,0.2)] text-[hsl(40,90%,55%)] border-[hsl(40,90%,55%,0.3)]",
+    className: "bg-status-warning/20 text-status-warning border-status-warning/30",
     icon: AlertCircle,
   },
   error: {
-    className: "bg-[hsl(0,70%,60%,0.2)] text-[hsl(0,70%,60%)] border-[hsl(0,70%,60%,0.3)]",
+    className: "bg-status-error/20 text-status-error border-status-error/30",
     icon: XCircle,
   },
   info: {
-    className: "bg-[hsl(195,80%,70%,0.2)] text-[hsl(195,80%,70%)] border-[hsl(195,80%,70%,0.3)]",
+    className: "bg-status-info/20 text-status-info border-status-info/30",
     icon: Info,
   },
   pending: {
-    className: "bg-[hsl(40,90%,55%,0.2)] text-[hsl(40,90%,55%)] border-[hsl(40,90%,55%,0.3)]",
+    className: "bg-status-pending/20 text-status-pending border-status-pending/30",
     icon: Clock,
   },
 };
