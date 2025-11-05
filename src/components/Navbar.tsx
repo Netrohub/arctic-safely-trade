@@ -31,11 +31,11 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
   return (
     <nav className="relative z-20 flex items-center justify-between px-6 py-4 md:px-12 border-b border-border backdrop-blur-md bg-nav-background/50">
       <Link to="/" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
-        <img 
-          src="/nxoland-official-logo.png" 
-          alt="NXOLand Logo" 
-          className="h-10 w-auto"
-        />
+        <span className="text-2xl font-bold">
+          <span className="text-white">NXO</span>
+          <span className="text-[#FF9500]">Land</span>
+        </span>
+        <Snowflake className="h-6 w-6 text-[#4FC3F7]" />
       </Link>
       
       <div className="flex items-center gap-4">
