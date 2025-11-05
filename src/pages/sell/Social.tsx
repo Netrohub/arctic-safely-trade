@@ -31,19 +31,19 @@ const Social = () => {
   return (
     <div className="min-h-screen relative overflow-hidden" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(280,70%,15%)] via-[hsl(300,60%,25%)] to-[hsl(280,70%,15%)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(200,70%,15%)] via-[hsl(195,60%,25%)] to-[hsl(200,70%,15%)]" />
       
-      {/* Particles */}
+      {/* Snow particles */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(30)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-white/40 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-white/60 rounded-full animate-fall"
             style={{
               left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDuration: `${2 + Math.random() * 3}s`,
-              animationDelay: `${Math.random() * 2}s`,
+              top: `-${Math.random() * 20}%`,
+              animationDuration: `${10 + Math.random() * 20}s`,
+              animationDelay: `${Math.random() * 5}s`,
             }}
           />
         ))}
@@ -65,7 +65,7 @@ const Social = () => {
           {platforms.map((platform) => {
             return (
               <Link key={platform.id} to={platform.path}>
-                <Card className="group relative overflow-hidden bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] cursor-pointer">
+                <Card className="group relative overflow-hidden bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] cursor-pointer">
                   {/* Content */}
                   <div className="relative p-8 flex flex-col items-center text-center space-y-4">
                     <img 
@@ -80,7 +80,7 @@ const Social = () => {
                     </div>
 
                     <div className="pt-4">
-                      <div className="inline-flex items-center gap-2 text-[hsl(280,70%,60%)] font-semibold group-hover:gap-4 transition-all">
+                      <div className="inline-flex items-center gap-2 text-[hsl(195,80%,70%)] font-semibold group-hover:gap-4 transition-all">
                         <span>{t('nav.sell')}</span>
                         <svg 
                           className="h-5 w-5" 
