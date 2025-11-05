@@ -45,7 +45,13 @@ const TikTok = () => {
   });
 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [showDeliveryDialog, setShowDeliveryDialog] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
+  const [deliveryData, setDeliveryData] = useState({
+    email: "",
+    password: "",
+    instructions: "",
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,11 +77,17 @@ const TikTok = () => {
     }
   };
 
-  const handleConfirmOwnership = async () => {
+  const handleConfirmOwnership = () => {
+    // Close ownership dialog and open delivery dialog
+    setShowConfirmDialog(false);
+    setShowDeliveryDialog(true);
+  };
+
+  const handleFinalSubmit = async () => {
     try {
       setIsSubmitting(true);
 
-      // Simulate API call
+      // Simulate API call with all data
       await new Promise(resolve => setTimeout(resolve, 1500));
 
       toast({
@@ -324,11 +336,79 @@ const TikTok = () => {
 
             <Button
               onClick={handleConfirmOwnership}
-              disabled={isSubmitting}
               className="w-full bg-primary hover:bg-primary/90"
               size="lg"
             >
-              {isSubmitting ? t('listing.creating') : t('sell.social.confirmOwnership.confirm')}
+              {t('sell.social.confirmOwnership.confirm')}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delivery Information Dialog */}
+      <Dialog open={showDeliveryDialog} onOpenChange={setShowDeliveryDialog}>
+        <DialogContent className="bg-[hsl(220,15%,12%)] border-white/10 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl text-center">
+              {t('sell.social.deliveryInfo.title')}
+            </DialogTitle>
+            <DialogDescription className="text-white/60 text-center pt-2">
+              {t('sell.social.deliveryInfo.description')}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="delivery-email" className="text-white">
+                {t('sell.social.deliveryInfo.email')}
+              </Label>
+              <Input
+                id="delivery-email"
+                type="email"
+                placeholder="example@email.com"
+                value={deliveryData.email}
+                onChange={(e) => setDeliveryData({ ...deliveryData, email: e.target.value })}
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="delivery-password" className="text-white">
+                {t('sell.social.deliveryInfo.password')}
+              </Label>
+              <Input
+                id="delivery-password"
+                type="password"
+                placeholder="••••••••"
+                value={deliveryData.password}
+                onChange={(e) => setDeliveryData({ ...deliveryData, password: e.target.value })}
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="delivery-instructions" className="text-white">
+                {t('sell.social.deliveryInfo.instructions')}
+              </Label>
+              <Textarea
+                id="delivery-instructions"
+                placeholder={t('sell.social.deliveryInfo.instructionsPlaceholder')}
+                value={deliveryData.instructions}
+                onChange={(e) => setDeliveryData({ ...deliveryData, instructions: e.target.value })}
+                rows={4}
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+              />
+            </div>
+
+            <Button
+              onClick={handleFinalSubmit}
+              disabled={isSubmitting || !deliveryData.email || !deliveryData.password}
+              className="w-full bg-primary hover:bg-primary/90"
+              size="lg"
+            >
+              {isSubmitting ? t('listing.creating') : t('listing.create')}
             </Button>
           </div>
         </DialogContent>

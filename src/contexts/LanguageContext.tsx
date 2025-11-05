@@ -145,6 +145,12 @@ const translations: Record<Language, Record<string, string>> = {
     'sell.social.confirmOwnership.confirm': 'تأكيد الملكية',
     'sell.social.pledge1': 'أتعهد بأن يكون وصف المنتج خاليًا من أي وسائل اتصال خارج المنصة، بأي طريقة كانت، سواء كانت مباشرة أو غير مباشرة.',
     'sell.social.pledge2': 'أتعهد بتحمل المسؤولية القانونية الكاملة عن جميع الإجراءات المتخذة أو الصادرة عن الحساب المعني من تاريخ إنشائه أو شرائه حتى تاريخ بيعه على منصة المستخدم، وأضمن أنه خالٍ من أي جرائم إلكترونية.',
+    'sell.social.deliveryInfo.title': 'معلومات التسليم',
+    'sell.social.deliveryInfo.description': 'أدخل بيانات الحساب التي سيتم تسليمها للمشتري',
+    'sell.social.deliveryInfo.email': 'البريد الإلكتروني',
+    'sell.social.deliveryInfo.password': 'كلمة المرور',
+    'sell.social.deliveryInfo.instructions': 'تعليمات التسليم',
+    'sell.social.deliveryInfo.instructionsPlaceholder': 'أي معلومات إضافية للمشتري حول التسليم...',
     
     // Listing
     'listing.success': 'تم إنشاء الإعلان بنجاح!',
@@ -259,6 +265,12 @@ const translations: Record<Language, Record<string, string>> = {
     'sell.social.confirmOwnership.confirm': 'CONFIRMATION OF OWNERSHIP',
     'sell.social.pledge1': 'I pledge that the product description will be free of any means of communication outside the platform, in any way whatsoever, whether direct or indirect.',
     'sell.social.pledge2': 'I undertake to bear full legal responsibility for all actions taken or issued by the account in question from the date of its creation or purchase until the date of its sale on the User platform, and I guarantee that it is free of any cybercrimes.',
+    'sell.social.deliveryInfo.title': 'Delivery Information',
+    'sell.social.deliveryInfo.description': 'Enter the account credentials that will be delivered to the buyer',
+    'sell.social.deliveryInfo.email': 'Email Address',
+    'sell.social.deliveryInfo.password': 'Password',
+    'sell.social.deliveryInfo.instructions': 'Delivery Instructions',
+    'sell.social.deliveryInfo.instructionsPlaceholder': 'Any additional information for the buyer about delivery...',
     
     // Listing
     'listing.success': 'Listing created successfully!',
