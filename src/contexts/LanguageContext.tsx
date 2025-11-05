@@ -143,7 +143,8 @@ const translations: Record<Language, Record<string, string>> = {
     'sell.social.confirmOwnership.theWord': 'الكلمة',
     'sell.social.confirmOwnership.copy': 'نسخ',
     'sell.social.confirmOwnership.confirm': 'تأكيد الملكية',
-    'sell.social.pledge': 'أتعهد بأن يكون وصف المنتج خاليًا من أي وسائل اتصال خارج المنصة، بأي طريقة كانت، سواء كانت مباشرة أو غير مباشرة. أتعهد بتحمل المسؤولية القانونية الكاملة عن جميع الإجراءات المتخذة أو الصادرة عن الحساب المعني من تاريخ إنشائه أو شرائه حتى تاريخ بيعه على منصة المستخدم، وأضمن أنه خالٍ من أي جرائم إلكترونية.',
+    'sell.social.pledge1': 'أتعهد بأن يكون وصف المنتج خاليًا من أي وسائل اتصال خارج المنصة، بأي طريقة كانت، سواء كانت مباشرة أو غير مباشرة.',
+    'sell.social.pledge2': 'أتعهد بتحمل المسؤولية القانونية الكاملة عن جميع الإجراءات المتخذة أو الصادرة عن الحساب المعني من تاريخ إنشائه أو شرائه حتى تاريخ بيعه على منصة المستخدم، وأضمن أنه خالٍ من أي جرائم إلكترونية.',
     
     // Listing
     'listing.success': 'تم إنشاء الإعلان بنجاح!',
@@ -256,7 +257,8 @@ const translations: Record<Language, Record<string, string>> = {
     'sell.social.confirmOwnership.theWord': 'The word',
     'sell.social.confirmOwnership.copy': 'copies',
     'sell.social.confirmOwnership.confirm': 'CONFIRMATION OF OWNERSHIP',
-    'sell.social.pledge': 'I pledge that the product description will be free of any means of communication outside the platform, in any way whatsoever, whether direct or indirect. I undertake to bear full legal responsibility for all actions taken or issued by the account in question from the date of its creation or purchase until the date of its sale on the User platform, and I guarantee that it is free of any cybercrimes.',
+    'sell.social.pledge1': 'I pledge that the product description will be free of any means of communication outside the platform, in any way whatsoever, whether direct or indirect.',
+    'sell.social.pledge2': 'I undertake to bear full legal responsibility for all actions taken or issued by the account in question from the date of its creation or purchase until the date of its sale on the User platform, and I guarantee that it is free of any cybercrimes.',
     
     // Listing
     'listing.success': 'Listing created successfully!',

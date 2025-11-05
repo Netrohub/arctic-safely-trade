@@ -20,8 +20,11 @@ const instagramSchema = z.object({
   price: z.string().trim().min(1, "Price is required"),
   hasPrimaryEmail: z.boolean(),
   hasPhoneNumber: z.boolean(),
-  agreeToPledge: z.boolean().refine((val) => val === true, {
-    message: "You must agree to the pledge",
+  agreeToPledge1: z.boolean().refine((val) => val === true, {
+    message: "You must agree to the first pledge",
+  }),
+  agreeToPledge2: z.boolean().refine((val) => val === true, {
+    message: "You must agree to the second pledge",
   }),
 });
 
@@ -37,7 +40,8 @@ const InstagramSell = () => {
     price: "",
     hasPrimaryEmail: false,
     hasPhoneNumber: false,
-    agreeToPledge: false,
+    agreeToPledge1: false,
+    agreeToPledge2: false,
   });
 
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -233,18 +237,35 @@ const InstagramSell = () => {
               <div className="space-y-4 p-4 bg-white/5 border border-white/10 rounded-lg">
                 <div className="flex items-start space-x-2">
                   <Checkbox
-                    id="pledge"
-                    checked={formData.agreeToPledge}
+                    id="pledge1"
+                    checked={formData.agreeToPledge1}
                     onCheckedChange={(checked) => 
-                      setFormData({ ...formData, agreeToPledge: checked as boolean })
+                      setFormData({ ...formData, agreeToPledge1: checked as boolean })
                     }
                     className="border-white/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary mt-1"
                   />
                   <Label
-                    htmlFor="pledge"
+                    htmlFor="pledge1"
                     className="text-white/90 cursor-pointer text-sm leading-relaxed"
                   >
-                    {t('sell.social.pledge')}
+                    {t('sell.social.pledge1')}
+                  </Label>
+                </div>
+
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="pledge2"
+                    checked={formData.agreeToPledge2}
+                    onCheckedChange={(checked) => 
+                      setFormData({ ...formData, agreeToPledge2: checked as boolean })
+                    }
+                    className="border-white/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary mt-1"
+                  />
+                  <Label
+                    htmlFor="pledge2"
+                    className="text-white/90 cursor-pointer text-sm leading-relaxed"
+                  >
+                    {t('sell.social.pledge2')}
                   </Label>
                 </div>
               </div>
