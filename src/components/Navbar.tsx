@@ -29,12 +29,12 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="relative z-20 flex items-center justify-between px-6 py-4 md:px-12 border-b border-border backdrop-blur-md bg-nav-background/50">
+    <nav className="relative z-20 flex items-center justify-between px-6 py-2 md:px-12 border-b border-border backdrop-blur-md bg-nav-background/50">
       <Link to="/" className="flex items-center hover:scale-105 transition-transform duration-300 order-1">
         <img 
           src="/nxoland-logo-main.png" 
           alt="NXOLand Logo" 
-          className="h-24 md:h-28 w-auto object-contain"
+          className="h-12 md:h-14 w-auto object-contain"
         />
       </Link>
       
