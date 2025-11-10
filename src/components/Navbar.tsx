@@ -34,7 +34,7 @@ export const Navbar = ({ showDesktopLinks = true }: NavbarProps) => {
         <img 
           src="/nxoland-logo-main.png" 
           alt="NXOLand Logo" 
-          className="h-10 md:h-12 w-auto object-contain"
+          className="h-14 md:h-16 w-auto object-contain"
         />
       </Link>
       
